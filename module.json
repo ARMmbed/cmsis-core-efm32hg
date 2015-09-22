@@ -1,0 +1,22 @@
+{
+  "name": "cmsis-core-efm32hg",
+  "version": "0.0.1",
+  "description": "CMSIS Core Implementation for EFM32HG",
+  "keywords": [
+    "cmsis"
+  ],
+  "author": "Aksel Skauge Mellbye <aksel.mellbye@silabs.com>",
+  "repository": {
+    "url": "git@github.com:ARMmbed/cmsis-core-efm32hg.git",
+    "type": "git"
+  },
+  "homepage": "https://github.com/ARMmbed/cmsis-core-efm32hg",
+  "license": "Apache-2",
+  "extraIncludes": [
+    "cmsis-core"
+  ],
+  "dependencies": {
+    "cmsis-core": "~0.2.0"
+  },
+  "targetDependencies": {}
+}
