@@ -10,4 +10,6 @@
 #include "em_device.h"
 #include "cmsis_nvic.h"
 
+extern uint32_t __start_vector_table__;
+
 #endif
