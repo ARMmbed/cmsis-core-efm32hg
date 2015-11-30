@@ -1,6 +1,7 @@
 /**************************************************************************//**
- * @file efm32hg_cmu.h
- * @brief EFM32HG_CMU register and bit field definitions
+ * @file efm32hg321f32.h
+ * @brief CMSIS Cortex-M Peripheral Access Layer Header File
+ *        for EFM32HG321F32
  * @version 4.2.0
  ******************************************************************************
  * @section License
@@ -29,14 +30,262 @@
  * any third party, arising from your use of this Software.
  *
  *****************************************************************************/
+
+#ifndef EFM32HG321F32_H
+#define EFM32HG321F32_H
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 /**************************************************************************//**
-* @addtogroup Parts
+ * @addtogroup Parts
+ * @{
+ *****************************************************************************/
+
+/**************************************************************************//**
+ * @defgroup EFM32HG321F32 EFM32HG321F32
+ * @{
+ *****************************************************************************/
+
+/** Interrupt Number Definition */
+typedef enum IRQn
+{
+/******  Cortex-M0+ Processor Exceptions Numbers *****************************************/
+  NonMaskableInt_IRQn = -14,                /*!< 2 Cortex-M0+ Non Maskable Interrupt     */
+  HardFault_IRQn      = -13,                /*!< 3 Cortex-M0+ Hard Fault Interrupt       */
+  SVCall_IRQn         = -5,                 /*!< 11 Cortex-M0+ SV Call Interrupt         */
+  PendSV_IRQn         = -2,                 /*!< 14 Cortex-M0+ Pend SV Interrupt         */
+  SysTick_IRQn        = -1,                 /*!< 15 Cortex-M0+ System Tick Interrupt     */
+
+/******  EFM32HG Peripheral Interrupt Numbers *********************************************/
+  DMA_IRQn            = 0,  /*!< 16+0 EFM32 DMA Interrupt */
+  GPIO_EVEN_IRQn      = 1,  /*!< 16+1 EFM32 GPIO_EVEN Interrupt */
+  TIMER0_IRQn         = 2,  /*!< 16+2 EFM32 TIMER0 Interrupt */
+  ACMP0_IRQn          = 3,  /*!< 16+3 EFM32 ACMP0 Interrupt */
+  ADC0_IRQn           = 4,  /*!< 16+4 EFM32 ADC0 Interrupt */
+  I2C0_IRQn           = 5,  /*!< 16+5 EFM32 I2C0 Interrupt */
+  GPIO_ODD_IRQn       = 6,  /*!< 16+6 EFM32 GPIO_ODD Interrupt */
+  TIMER1_IRQn         = 7,  /*!< 16+7 EFM32 TIMER1 Interrupt */
+  USART1_RX_IRQn      = 8,  /*!< 16+8 EFM32 USART1_RX Interrupt */
+  USART1_TX_IRQn      = 9,  /*!< 16+9 EFM32 USART1_TX Interrupt */
+  LEUART0_IRQn        = 10, /*!< 16+10 EFM32 LEUART0 Interrupt */
+  PCNT0_IRQn          = 11, /*!< 16+11 EFM32 PCNT0 Interrupt */
+  RTC_IRQn            = 12, /*!< 16+12 EFM32 RTC Interrupt */
+  CMU_IRQn            = 13, /*!< 16+13 EFM32 CMU Interrupt */
+  VCMP_IRQn           = 14, /*!< 16+14 EFM32 VCMP Interrupt */
+  MSC_IRQn            = 15, /*!< 16+15 EFM32 MSC Interrupt */
+  USART0_RX_IRQn      = 17, /*!< 16+17 EFM32 USART0_RX Interrupt */
+  USART0_TX_IRQn      = 18, /*!< 16+18 EFM32 USART0_TX Interrupt */
+  USB_IRQn            = 19, /*!< 16+19 EFM32 USB Interrupt */
+  TIMER2_IRQn         = 20, /*!< 16+20 EFM32 TIMER2 Interrupt */
+} IRQn_Type;
+
+/**************************************************************************//**
+ * @defgroup EFM32HG321F32_Core EFM32HG321F32 Core
+ * @{
+ * @brief Processor and Core Peripheral Section
+ *****************************************************************************/
+#define __MPU_PRESENT             0 /**< MPU not present */
+#define __VTOR_PRESENT            1 /**< Presence of VTOR register in SCB */
+#define __NVIC_PRIO_BITS          2 /**< NVIC interrupt priority bits */
+#define __Vendor_SysTickConfig    0 /**< Is 1 if different SysTick counter is used */
+
+/** @} End of group EFM32HG321F32_Core */
+
+/**************************************************************************//**
+* @defgroup EFM32HG321F32_Part EFM32HG321F32 Part
 * @{
 ******************************************************************************/
+
+/** Part family */
+#define _EFM32_HAPPY_FAMILY             1 /**< Happy Gecko EFM32HG MCU Family */
+#define _EFM_DEVICE                       /**< Silicon Labs EFM-type microcontroller */
+#define _SILICON_LABS_32B_PLATFORM_1      /**< Silicon Labs platform name */
+#define _SILICON_LABS_32B_PLATFORM      1 /**< Silicon Labs platform name */
+
+/* If part number is not defined as compiler option, define it */
+#if !defined(EFM32HG321F32)
+#define EFM32HG321F32    1 /**< Happy Gecko Part  */
+#endif
+
+/** Configure part number */
+#define PART_NUMBER          "EFM32HG321F32" /**< Part Number */
+
+/** Memory Base addresses and limits */
+#define FLASH_MEM_BASE       ((uint32_t) 0x0UL)        /**< FLASH base address  */
+#define FLASH_MEM_SIZE       ((uint32_t) 0x10000000UL) /**< FLASH available address space  */
+#define FLASH_MEM_END        ((uint32_t) 0xFFFFFFFUL)  /**< FLASH end address  */
+#define FLASH_MEM_BITS       ((uint32_t) 0x28UL)       /**< FLASH used bits  */
+#define AES_MEM_BASE         ((uint32_t) 0x400E0000UL) /**< AES base address  */
+#define AES_MEM_SIZE         ((uint32_t) 0x400UL)      /**< AES available address space  */
+#define AES_MEM_END          ((uint32_t) 0x400E03FFUL) /**< AES end address  */
+#define AES_MEM_BITS         ((uint32_t) 0x10UL)       /**< AES used bits  */
+#define USBC_MEM_BASE        ((uint32_t) 0x40100000UL) /**< USBC base address  */
+#define USBC_MEM_SIZE        ((uint32_t) 0x40000UL)    /**< USBC available address space  */
+#define USBC_MEM_END         ((uint32_t) 0x4013FFFFUL) /**< USBC end address  */
+#define USBC_MEM_BITS        ((uint32_t) 0x18UL)       /**< USBC used bits  */
+#define PER_MEM_BASE         ((uint32_t) 0x40000000UL) /**< PER base address  */
+#define PER_MEM_SIZE         ((uint32_t) 0xE0000UL)    /**< PER available address space  */
+#define PER_MEM_END          ((uint32_t) 0x400DFFFFUL) /**< PER end address  */
+#define PER_MEM_BITS         ((uint32_t) 0x20UL)       /**< PER used bits  */
+#define RAM_MEM_BASE         ((uint32_t) 0x20000000UL) /**< RAM base address  */
+#define RAM_MEM_SIZE         ((uint32_t) 0x40000UL)    /**< RAM available address space  */
+#define RAM_MEM_END          ((uint32_t) 0x2003FFFFUL) /**< RAM end address  */
+#define RAM_MEM_BITS         ((uint32_t) 0x18UL)       /**< RAM used bits  */
+#define DEVICE_MEM_BASE      ((uint32_t) 0xF0040000UL) /**< DEVICE base address  */
+#define DEVICE_MEM_SIZE      ((uint32_t) 0x1000UL)     /**< DEVICE available address space  */
+#define DEVICE_MEM_END       ((uint32_t) 0xF0040FFFUL) /**< DEVICE end address  */
+#define DEVICE_MEM_BITS      ((uint32_t) 0x12UL)       /**< DEVICE used bits  */
+#define RAM_CODE_MEM_BASE    ((uint32_t) 0x10000000UL) /**< RAM_CODE base address  */
+#define RAM_CODE_MEM_SIZE    ((uint32_t) 0x20000UL)    /**< RAM_CODE available address space  */
+#define RAM_CODE_MEM_END     ((uint32_t) 0x1001FFFFUL) /**< RAM_CODE end address  */
+#define RAM_CODE_MEM_BITS    ((uint32_t) 0x17UL)       /**< RAM_CODE used bits  */
+
+/** Flash and SRAM limits for EFM32HG321F32 */
+#define FLASH_BASE           (0x00000000UL) /**< Flash Base Address */
+#define FLASH_SIZE           (0x00008000UL) /**< Available Flash Memory */
+#define FLASH_PAGE_SIZE      1024           /**< Flash Memory page size */
+#define SRAM_BASE            (0x20000000UL) /**< SRAM Base Address */
+#define SRAM_SIZE            (0x00002000UL) /**< Available SRAM Memory */
+#define __CM0PLUS_REV        0x001          /**< Cortex-M0+ Core revision r0p1 */
+#define PRS_CHAN_COUNT       6              /**< Number of PRS channels */
+#define DMA_CHAN_COUNT       6              /**< Number of DMA channels */
+
+/** AF channels connect the different on-chip peripherals with the af-mux */
+#define AFCHAN_MAX           42
+#define AFCHANLOC_MAX        7
+/** Analog AF channels */
+#define AFACHAN_MAX          27
+
+/* Part number capabilities */
+
+#define TIMER_PRESENT         /**< TIMER is available in this part */
+#define TIMER_COUNT         3 /**< 3 TIMERs available  */
+#define ACMP_PRESENT          /**< ACMP is available in this part */
+#define ACMP_COUNT          1 /**< 1 ACMPs available  */
+#define USART_PRESENT         /**< USART is available in this part */
+#define USART_COUNT         2 /**< 2 USARTs available  */
+#define IDAC_PRESENT          /**< IDAC is available in this part */
+#define IDAC_COUNT          1 /**< 1 IDACs available  */
+#define ADC_PRESENT           /**< ADC is available in this part */
+#define ADC_COUNT           1 /**< 1 ADCs available  */
+#define LEUART_PRESENT        /**< LEUART is available in this part */
+#define LEUART_COUNT        1 /**< 1 LEUARTs available  */
+#define PCNT_PRESENT          /**< PCNT is available in this part */
+#define PCNT_COUNT          1 /**< 1 PCNTs available  */
+#define I2C_PRESENT           /**< I2C is available in this part */
+#define I2C_COUNT           1 /**< 1 I2Cs available  */
+#define DMA_PRESENT
+#define DMA_COUNT           1
+#define LE_PRESENT
+#define LE_COUNT            1
+#define USBC_PRESENT
+#define USBC_COUNT          1
+#define USBLE_PRESENT
+#define USBLE_COUNT         1
+#define USB_PRESENT
+#define USB_COUNT           1
+#define MSC_PRESENT
+#define MSC_COUNT           1
+#define EMU_PRESENT
+#define EMU_COUNT           1
+#define RMU_PRESENT
+#define RMU_COUNT           1
+#define CMU_PRESENT
+#define CMU_COUNT           1
+#define PRS_PRESENT
+#define PRS_COUNT           1
+#define GPIO_PRESENT
+#define GPIO_COUNT          1
+#define VCMP_PRESENT
+#define VCMP_COUNT          1
+#define RTC_PRESENT
+#define RTC_COUNT           1
+#define HFXTAL_PRESENT
+#define HFXTAL_COUNT        1
+#define LFXTAL_PRESENT
+#define LFXTAL_COUNT        1
+#define USHFRCO_PRESENT
+#define USHFRCO_COUNT       1
+#define WDOG_PRESENT
+#define WDOG_COUNT          1
+#define DBG_PRESENT
+#define DBG_COUNT           1
+#define MTB_PRESENT
+#define MTB_COUNT           1
+#define BOOTLOADER_PRESENT
+#define BOOTLOADER_COUNT    1
+#define ANALOG_PRESENT
+#define ANALOG_COUNT        1
+
+/** @} End of group EFM32HG321F32_Part */
+
+#define ARM_MATH_CM0PLUS
+#include "arm_math.h"       /* To get __CLZ definitions etc. */
+#include "core_cm0plus.h"   /* Cortex-M0+ processor and core peripherals */
+#include "system_efm32hg.h" /* System Header */
+
 /**************************************************************************//**
- * @defgroup EFM32HG_CMU
+ * @defgroup EFM32HG321F32_Peripheral_TypeDefs EFM32HG321F32 Peripheral TypeDefs
  * @{
- * @brief EFM32HG_CMU Register Declaration
+ * @brief Device Specific Peripheral Register Structures
+ *****************************************************************************/
+
+#include "efm32hg_dma_ch.h"
+
+/**************************************************************************//**
+ * @defgroup EFM32HG321F32_DMA EFM32HG321F32 DMA
+ * @{
+ * @brief EFM32HG321F32_DMA Register Declaration
+ *****************************************************************************/
+typedef struct
+{
+  __I uint32_t   STATUS;         /**< DMA Status Registers  */
+  __O uint32_t   CONFIG;         /**< DMA Configuration Register  */
+  __IO uint32_t  CTRLBASE;       /**< Channel Control Data Base Pointer Register  */
+  __I uint32_t   ALTCTRLBASE;    /**< Channel Alternate Control Data Base Pointer Register  */
+  __I uint32_t   CHWAITSTATUS;   /**< Channel Wait on Request Status Register  */
+  __O uint32_t   CHSWREQ;        /**< Channel Software Request Register  */
+  __IO uint32_t  CHUSEBURSTS;    /**< Channel Useburst Set Register  */
+  __O uint32_t   CHUSEBURSTC;    /**< Channel Useburst Clear Register  */
+  __IO uint32_t  CHREQMASKS;     /**< Channel Request Mask Set Register  */
+  __O uint32_t   CHREQMASKC;     /**< Channel Request Mask Clear Register  */
+  __IO uint32_t  CHENS;          /**< Channel Enable Set Register  */
+  __O uint32_t   CHENC;          /**< Channel Enable Clear Register  */
+  __IO uint32_t  CHALTS;         /**< Channel Alternate Set Register  */
+  __O uint32_t   CHALTC;         /**< Channel Alternate Clear Register  */
+  __IO uint32_t  CHPRIS;         /**< Channel Priority Set Register  */
+  __O uint32_t   CHPRIC;         /**< Channel Priority Clear Register  */
+  uint32_t       RESERVED0[3];   /**< Reserved for future use **/
+  __IO uint32_t  ERRORC;         /**< Bus Error Clear Register  */
+
+  uint32_t       RESERVED1[880]; /**< Reserved for future use **/
+  __I uint32_t   CHREQSTATUS;    /**< Channel Request Status  */
+  uint32_t       RESERVED2[1];   /**< Reserved for future use **/
+  __I uint32_t   CHSREQSTATUS;   /**< Channel Single Request Status  */
+
+  uint32_t       RESERVED3[121]; /**< Reserved for future use **/
+  __I uint32_t   IF;             /**< Interrupt Flag Register  */
+  __IO uint32_t  IFS;            /**< Interrupt Flag Set Register  */
+  __IO uint32_t  IFC;            /**< Interrupt Flag Clear Register  */
+  __IO uint32_t  IEN;            /**< Interrupt Enable register  */
+
+  uint32_t       RESERVED4[60];  /**< Reserved registers */
+  DMA_CH_TypeDef CH[6];          /**< Channel registers */
+} DMA_TypeDef;                   /** @} */
+
+#include "efm32hg_usb_diep.h"
+#include "efm32hg_usb_doep.h"
+#include "efm32hg_usb.h"
+#include "efm32hg_msc.h"
+#include "efm32hg_emu.h"
+#include "efm32hg_rmu.h"
+
+/**************************************************************************//**
+ * @defgroup EFM32HG321F32_CMU EFM32HG321F32 CMU
+ * @{
+ * @brief EFM32HG321F32_CMU Register Declaration
  *****************************************************************************/
 typedef struct
 {
@@ -82,8 +331,918 @@ typedef struct
   __IO uint32_t USHFRCOCONF;   /**< USHFRCO Configuration  */
 } CMU_TypeDef;                 /** @} */
 
+#include "efm32hg_timer_cc.h"
+#include "efm32hg_timer.h"
+#include "efm32hg_acmp.h"
+#include "efm32hg_usart.h"
+#include "efm32hg_prs_ch.h"
+#include "efm32hg_prs.h"
+#include "efm32hg_idac.h"
+#include "efm32hg_gpio_p.h"
+#include "efm32hg_gpio.h"
+#include "efm32hg_vcmp.h"
+#include "efm32hg_adc.h"
+#include "efm32hg_leuart.h"
+#include "efm32hg_pcnt.h"
+#include "efm32hg_i2c.h"
+#include "efm32hg_rtc.h"
+#include "efm32hg_wdog.h"
+#include "efm32hg_mtb.h"
+#include "efm32hg_dma_descriptor.h"
+#include "efm32hg_devinfo.h"
+#include "efm32hg_romtable.h"
+#include "efm32hg_calibrate.h"
+
+/** @} End of group EFM32HG321F32_Peripheral_TypeDefs */
+
 /**************************************************************************//**
- * @defgroup EFM32HG_CMU_BitFields
+ * @defgroup EFM32HG321F32_Peripheral_Base EFM32HG321F32 Peripheral Memory Map
+ * @{
+ *****************************************************************************/
+
+#define DMA_BASE          (0x400C2000UL) /**< DMA base address  */
+#define USB_BASE          (0x400C4000UL) /**< USB base address  */
+#define MSC_BASE          (0x400C0000UL) /**< MSC base address  */
+#define EMU_BASE          (0x400C6000UL) /**< EMU base address  */
+#define RMU_BASE          (0x400CA000UL) /**< RMU base address  */
+#define CMU_BASE          (0x400C8000UL) /**< CMU base address  */
+#define TIMER0_BASE       (0x40010000UL) /**< TIMER0 base address  */
+#define TIMER1_BASE       (0x40010400UL) /**< TIMER1 base address  */
+#define TIMER2_BASE       (0x40010800UL) /**< TIMER2 base address  */
+#define ACMP0_BASE        (0x40001000UL) /**< ACMP0 base address  */
+#define USART0_BASE       (0x4000C000UL) /**< USART0 base address  */
+#define USART1_BASE       (0x4000C400UL) /**< USART1 base address  */
+#define PRS_BASE          (0x400CC000UL) /**< PRS base address  */
+#define IDAC0_BASE        (0x40004000UL) /**< IDAC0 base address  */
+#define GPIO_BASE         (0x40006000UL) /**< GPIO base address  */
+#define VCMP_BASE         (0x40000000UL) /**< VCMP base address  */
+#define ADC0_BASE         (0x40002000UL) /**< ADC0 base address  */
+#define LEUART0_BASE      (0x40084000UL) /**< LEUART0 base address  */
+#define PCNT0_BASE        (0x40086000UL) /**< PCNT0 base address  */
+#define I2C0_BASE         (0x4000A000UL) /**< I2C0 base address  */
+#define RTC_BASE          (0x40080000UL) /**< RTC base address  */
+#define WDOG_BASE         (0x40088000UL) /**< WDOG base address  */
+#define MTB_BASE          (0xF0040000UL) /**< MTB base address  */
+#define CALIBRATE_BASE    (0x0FE08000UL) /**< CALIBRATE base address */
+#define DEVINFO_BASE      (0x0FE081B0UL) /**< DEVINFO base address */
+#define ROMTABLE_BASE     (0xF00FFFD0UL) /**< ROMTABLE base address */
+#define LOCKBITS_BASE     (0x0FE04000UL) /**< Lock-bits page base address */
+#define USERDATA_BASE     (0x0FE00000UL) /**< User data page base address */
+
+/** @} End of group EFM32HG321F32_Peripheral_Base */
+
+/**************************************************************************//**
+ * @defgroup EFM32HG321F32_Peripheral_Declaration  EFM32HG321F32 Peripheral Declarations
+ * @{
+ *****************************************************************************/
+
+#define DMA          ((DMA_TypeDef *) DMA_BASE)             /**< DMA base pointer */
+#define USB          ((USB_TypeDef *) USB_BASE)             /**< USB base pointer */
+#define MSC          ((MSC_TypeDef *) MSC_BASE)             /**< MSC base pointer */
+#define EMU          ((EMU_TypeDef *) EMU_BASE)             /**< EMU base pointer */
+#define RMU          ((RMU_TypeDef *) RMU_BASE)             /**< RMU base pointer */
+#define CMU          ((CMU_TypeDef *) CMU_BASE)             /**< CMU base pointer */
+#define TIMER0       ((TIMER_TypeDef *) TIMER0_BASE)        /**< TIMER0 base pointer */
+#define TIMER1       ((TIMER_TypeDef *) TIMER1_BASE)        /**< TIMER1 base pointer */
+#define TIMER2       ((TIMER_TypeDef *) TIMER2_BASE)        /**< TIMER2 base pointer */
+#define ACMP0        ((ACMP_TypeDef *) ACMP0_BASE)          /**< ACMP0 base pointer */
+#define USART0       ((USART_TypeDef *) USART0_BASE)        /**< USART0 base pointer */
+#define USART1       ((USART_TypeDef *) USART1_BASE)        /**< USART1 base pointer */
+#define PRS          ((PRS_TypeDef *) PRS_BASE)             /**< PRS base pointer */
+#define IDAC0        ((IDAC_TypeDef *) IDAC0_BASE)          /**< IDAC0 base pointer */
+#define GPIO         ((GPIO_TypeDef *) GPIO_BASE)           /**< GPIO base pointer */
+#define VCMP         ((VCMP_TypeDef *) VCMP_BASE)           /**< VCMP base pointer */
+#define ADC0         ((ADC_TypeDef *) ADC0_BASE)            /**< ADC0 base pointer */
+#define LEUART0      ((LEUART_TypeDef *) LEUART0_BASE)      /**< LEUART0 base pointer */
+#define PCNT0        ((PCNT_TypeDef *) PCNT0_BASE)          /**< PCNT0 base pointer */
+#define I2C0         ((I2C_TypeDef *) I2C0_BASE)            /**< I2C0 base pointer */
+#define RTC          ((RTC_TypeDef *) RTC_BASE)             /**< RTC base pointer */
+#define WDOG         ((WDOG_TypeDef *) WDOG_BASE)           /**< WDOG base pointer */
+#define MTB          ((MTB_TypeDef *) MTB_BASE)             /**< MTB base pointer */
+#define CALIBRATE    ((CALIBRATE_TypeDef *) CALIBRATE_BASE) /**< CALIBRATE base pointer */
+#define DEVINFO      ((DEVINFO_TypeDef *) DEVINFO_BASE)     /**< DEVINFO base pointer */
+#define ROMTABLE     ((ROMTABLE_TypeDef *) ROMTABLE_BASE)   /**< ROMTABLE base pointer */
+
+/** @} End of group EFM32HG321F32_Peripheral_Declaration */
+
+/**************************************************************************//**
+ * @defgroup EFM32HG321F32_BitFields EFM32HG321F32 Bit Fields
+ * @{
+ *****************************************************************************/
+
+#include "efm32hg_prs_signals.h"
+#include "efm32hg_dmareq.h"
+#include "efm32hg_dmactrl.h"
+
+/**************************************************************************//**
+ * @defgroup EFM32HG321F32_DMA_BitFields  EFM32HG321F32_DMA Bit Fields
+ * @{
+ *****************************************************************************/
+
+/* Bit fields for DMA STATUS */
+#define _DMA_STATUS_RESETVALUE                          0x10050000UL                          /**< Default value for DMA_STATUS */
+#define _DMA_STATUS_MASK                                0x001F00F1UL                          /**< Mask for DMA_STATUS */
+#define DMA_STATUS_EN                                   (0x1UL << 0)                          /**< DMA Enable Status */
+#define _DMA_STATUS_EN_SHIFT                            0                                     /**< Shift value for DMA_EN */
+#define _DMA_STATUS_EN_MASK                             0x1UL                                 /**< Bit mask for DMA_EN */
+#define _DMA_STATUS_EN_DEFAULT                          0x00000000UL                          /**< Mode DEFAULT for DMA_STATUS */
+#define DMA_STATUS_EN_DEFAULT                           (_DMA_STATUS_EN_DEFAULT << 0)         /**< Shifted mode DEFAULT for DMA_STATUS */
+#define _DMA_STATUS_STATE_SHIFT                         4                                     /**< Shift value for DMA_STATE */
+#define _DMA_STATUS_STATE_MASK                          0xF0UL                                /**< Bit mask for DMA_STATE */
+#define _DMA_STATUS_STATE_DEFAULT                       0x00000000UL                          /**< Mode DEFAULT for DMA_STATUS */
+#define _DMA_STATUS_STATE_IDLE                          0x00000000UL                          /**< Mode IDLE for DMA_STATUS */
+#define _DMA_STATUS_STATE_RDCHCTRLDATA                  0x00000001UL                          /**< Mode RDCHCTRLDATA for DMA_STATUS */
+#define _DMA_STATUS_STATE_RDSRCENDPTR                   0x00000002UL                          /**< Mode RDSRCENDPTR for DMA_STATUS */
+#define _DMA_STATUS_STATE_RDDSTENDPTR                   0x00000003UL                          /**< Mode RDDSTENDPTR for DMA_STATUS */
+#define _DMA_STATUS_STATE_RDSRCDATA                     0x00000004UL                          /**< Mode RDSRCDATA for DMA_STATUS */
+#define _DMA_STATUS_STATE_WRDSTDATA                     0x00000005UL                          /**< Mode WRDSTDATA for DMA_STATUS */
+#define _DMA_STATUS_STATE_WAITREQCLR                    0x00000006UL                          /**< Mode WAITREQCLR for DMA_STATUS */
+#define _DMA_STATUS_STATE_WRCHCTRLDATA                  0x00000007UL                          /**< Mode WRCHCTRLDATA for DMA_STATUS */
+#define _DMA_STATUS_STATE_STALLED                       0x00000008UL                          /**< Mode STALLED for DMA_STATUS */
+#define _DMA_STATUS_STATE_DONE                          0x00000009UL                          /**< Mode DONE for DMA_STATUS */
+#define _DMA_STATUS_STATE_PERSCATTRANS                  0x0000000AUL                          /**< Mode PERSCATTRANS for DMA_STATUS */
+#define DMA_STATUS_STATE_DEFAULT                        (_DMA_STATUS_STATE_DEFAULT << 4)      /**< Shifted mode DEFAULT for DMA_STATUS */
+#define DMA_STATUS_STATE_IDLE                           (_DMA_STATUS_STATE_IDLE << 4)         /**< Shifted mode IDLE for DMA_STATUS */
+#define DMA_STATUS_STATE_RDCHCTRLDATA                   (_DMA_STATUS_STATE_RDCHCTRLDATA << 4) /**< Shifted mode RDCHCTRLDATA for DMA_STATUS */
+#define DMA_STATUS_STATE_RDSRCENDPTR                    (_DMA_STATUS_STATE_RDSRCENDPTR << 4)  /**< Shifted mode RDSRCENDPTR for DMA_STATUS */
+#define DMA_STATUS_STATE_RDDSTENDPTR                    (_DMA_STATUS_STATE_RDDSTENDPTR << 4)  /**< Shifted mode RDDSTENDPTR for DMA_STATUS */
+#define DMA_STATUS_STATE_RDSRCDATA                      (_DMA_STATUS_STATE_RDSRCDATA << 4)    /**< Shifted mode RDSRCDATA for DMA_STATUS */
+#define DMA_STATUS_STATE_WRDSTDATA                      (_DMA_STATUS_STATE_WRDSTDATA << 4)    /**< Shifted mode WRDSTDATA for DMA_STATUS */
+#define DMA_STATUS_STATE_WAITREQCLR                     (_DMA_STATUS_STATE_WAITREQCLR << 4)   /**< Shifted mode WAITREQCLR for DMA_STATUS */
+#define DMA_STATUS_STATE_WRCHCTRLDATA                   (_DMA_STATUS_STATE_WRCHCTRLDATA << 4) /**< Shifted mode WRCHCTRLDATA for DMA_STATUS */
+#define DMA_STATUS_STATE_STALLED                        (_DMA_STATUS_STATE_STALLED << 4)      /**< Shifted mode STALLED for DMA_STATUS */
+#define DMA_STATUS_STATE_DONE                           (_DMA_STATUS_STATE_DONE << 4)         /**< Shifted mode DONE for DMA_STATUS */
+#define DMA_STATUS_STATE_PERSCATTRANS                   (_DMA_STATUS_STATE_PERSCATTRANS << 4) /**< Shifted mode PERSCATTRANS for DMA_STATUS */
+#define _DMA_STATUS_CHNUM_SHIFT                         16                                    /**< Shift value for DMA_CHNUM */
+#define _DMA_STATUS_CHNUM_MASK                          0x1F0000UL                            /**< Bit mask for DMA_CHNUM */
+#define _DMA_STATUS_CHNUM_DEFAULT                       0x00000005UL                          /**< Mode DEFAULT for DMA_STATUS */
+#define DMA_STATUS_CHNUM_DEFAULT                        (_DMA_STATUS_CHNUM_DEFAULT << 16)     /**< Shifted mode DEFAULT for DMA_STATUS */
+
+/* Bit fields for DMA CONFIG */
+#define _DMA_CONFIG_RESETVALUE                          0x00000000UL                      /**< Default value for DMA_CONFIG */
+#define _DMA_CONFIG_MASK                                0x00000021UL                      /**< Mask for DMA_CONFIG */
+#define DMA_CONFIG_EN                                   (0x1UL << 0)                      /**< Enable DMA */
+#define _DMA_CONFIG_EN_SHIFT                            0                                 /**< Shift value for DMA_EN */
+#define _DMA_CONFIG_EN_MASK                             0x1UL                             /**< Bit mask for DMA_EN */
+#define _DMA_CONFIG_EN_DEFAULT                          0x00000000UL                      /**< Mode DEFAULT for DMA_CONFIG */
+#define DMA_CONFIG_EN_DEFAULT                           (_DMA_CONFIG_EN_DEFAULT << 0)     /**< Shifted mode DEFAULT for DMA_CONFIG */
+#define DMA_CONFIG_CHPROT                               (0x1UL << 5)                      /**< Channel Protection Control */
+#define _DMA_CONFIG_CHPROT_SHIFT                        5                                 /**< Shift value for DMA_CHPROT */
+#define _DMA_CONFIG_CHPROT_MASK                         0x20UL                            /**< Bit mask for DMA_CHPROT */
+#define _DMA_CONFIG_CHPROT_DEFAULT                      0x00000000UL                      /**< Mode DEFAULT for DMA_CONFIG */
+#define DMA_CONFIG_CHPROT_DEFAULT                       (_DMA_CONFIG_CHPROT_DEFAULT << 5) /**< Shifted mode DEFAULT for DMA_CONFIG */
+
+/* Bit fields for DMA CTRLBASE */
+#define _DMA_CTRLBASE_RESETVALUE                        0x00000000UL                          /**< Default value for DMA_CTRLBASE */
+#define _DMA_CTRLBASE_MASK                              0xFFFFFFFFUL                          /**< Mask for DMA_CTRLBASE */
+#define _DMA_CTRLBASE_CTRLBASE_SHIFT                    0                                     /**< Shift value for DMA_CTRLBASE */
+#define _DMA_CTRLBASE_CTRLBASE_MASK                     0xFFFFFFFFUL                          /**< Bit mask for DMA_CTRLBASE */
+#define _DMA_CTRLBASE_CTRLBASE_DEFAULT                  0x00000000UL                          /**< Mode DEFAULT for DMA_CTRLBASE */
+#define DMA_CTRLBASE_CTRLBASE_DEFAULT                   (_DMA_CTRLBASE_CTRLBASE_DEFAULT << 0) /**< Shifted mode DEFAULT for DMA_CTRLBASE */
+
+/* Bit fields for DMA ALTCTRLBASE */
+#define _DMA_ALTCTRLBASE_RESETVALUE                     0x00000080UL                                /**< Default value for DMA_ALTCTRLBASE */
+#define _DMA_ALTCTRLBASE_MASK                           0xFFFFFFFFUL                                /**< Mask for DMA_ALTCTRLBASE */
+#define _DMA_ALTCTRLBASE_ALTCTRLBASE_SHIFT              0                                           /**< Shift value for DMA_ALTCTRLBASE */
+#define _DMA_ALTCTRLBASE_ALTCTRLBASE_MASK               0xFFFFFFFFUL                                /**< Bit mask for DMA_ALTCTRLBASE */
+#define _DMA_ALTCTRLBASE_ALTCTRLBASE_DEFAULT            0x00000080UL                                /**< Mode DEFAULT for DMA_ALTCTRLBASE */
+#define DMA_ALTCTRLBASE_ALTCTRLBASE_DEFAULT             (_DMA_ALTCTRLBASE_ALTCTRLBASE_DEFAULT << 0) /**< Shifted mode DEFAULT for DMA_ALTCTRLBASE */
+
+/* Bit fields for DMA CHWAITSTATUS */
+#define _DMA_CHWAITSTATUS_RESETVALUE                    0x0000003FUL                                   /**< Default value for DMA_CHWAITSTATUS */
+#define _DMA_CHWAITSTATUS_MASK                          0x0000003FUL                                   /**< Mask for DMA_CHWAITSTATUS */
+#define DMA_CHWAITSTATUS_CH0WAITSTATUS                  (0x1UL << 0)                                   /**< Channel 0 Wait on Request Status */
+#define _DMA_CHWAITSTATUS_CH0WAITSTATUS_SHIFT           0                                              /**< Shift value for DMA_CH0WAITSTATUS */
+#define _DMA_CHWAITSTATUS_CH0WAITSTATUS_MASK            0x1UL                                          /**< Bit mask for DMA_CH0WAITSTATUS */
+#define _DMA_CHWAITSTATUS_CH0WAITSTATUS_DEFAULT         0x00000001UL                                   /**< Mode DEFAULT for DMA_CHWAITSTATUS */
+#define DMA_CHWAITSTATUS_CH0WAITSTATUS_DEFAULT          (_DMA_CHWAITSTATUS_CH0WAITSTATUS_DEFAULT << 0) /**< Shifted mode DEFAULT for DMA_CHWAITSTATUS */
+#define DMA_CHWAITSTATUS_CH1WAITSTATUS                  (0x1UL << 1)                                   /**< Channel 1 Wait on Request Status */
+#define _DMA_CHWAITSTATUS_CH1WAITSTATUS_SHIFT           1                                              /**< Shift value for DMA_CH1WAITSTATUS */
+#define _DMA_CHWAITSTATUS_CH1WAITSTATUS_MASK            0x2UL                                          /**< Bit mask for DMA_CH1WAITSTATUS */
+#define _DMA_CHWAITSTATUS_CH1WAITSTATUS_DEFAULT         0x00000001UL                                   /**< Mode DEFAULT for DMA_CHWAITSTATUS */
+#define DMA_CHWAITSTATUS_CH1WAITSTATUS_DEFAULT          (_DMA_CHWAITSTATUS_CH1WAITSTATUS_DEFAULT << 1) /**< Shifted mode DEFAULT for DMA_CHWAITSTATUS */
+#define DMA_CHWAITSTATUS_CH2WAITSTATUS                  (0x1UL << 2)                                   /**< Channel 2 Wait on Request Status */
+#define _DMA_CHWAITSTATUS_CH2WAITSTATUS_SHIFT           2                                              /**< Shift value for DMA_CH2WAITSTATUS */
+#define _DMA_CHWAITSTATUS_CH2WAITSTATUS_MASK            0x4UL                                          /**< Bit mask for DMA_CH2WAITSTATUS */
+#define _DMA_CHWAITSTATUS_CH2WAITSTATUS_DEFAULT         0x00000001UL                                   /**< Mode DEFAULT for DMA_CHWAITSTATUS */
+#define DMA_CHWAITSTATUS_CH2WAITSTATUS_DEFAULT          (_DMA_CHWAITSTATUS_CH2WAITSTATUS_DEFAULT << 2) /**< Shifted mode DEFAULT for DMA_CHWAITSTATUS */
+#define DMA_CHWAITSTATUS_CH3WAITSTATUS                  (0x1UL << 3)                                   /**< Channel 3 Wait on Request Status */
+#define _DMA_CHWAITSTATUS_CH3WAITSTATUS_SHIFT           3                                              /**< Shift value for DMA_CH3WAITSTATUS */
+#define _DMA_CHWAITSTATUS_CH3WAITSTATUS_MASK            0x8UL                                          /**< Bit mask for DMA_CH3WAITSTATUS */
+#define _DMA_CHWAITSTATUS_CH3WAITSTATUS_DEFAULT         0x00000001UL                                   /**< Mode DEFAULT for DMA_CHWAITSTATUS */
+#define DMA_CHWAITSTATUS_CH3WAITSTATUS_DEFAULT          (_DMA_CHWAITSTATUS_CH3WAITSTATUS_DEFAULT << 3) /**< Shifted mode DEFAULT for DMA_CHWAITSTATUS */
+#define DMA_CHWAITSTATUS_CH4WAITSTATUS                  (0x1UL << 4)                                   /**< Channel 4 Wait on Request Status */
+#define _DMA_CHWAITSTATUS_CH4WAITSTATUS_SHIFT           4                                              /**< Shift value for DMA_CH4WAITSTATUS */
+#define _DMA_CHWAITSTATUS_CH4WAITSTATUS_MASK            0x10UL                                         /**< Bit mask for DMA_CH4WAITSTATUS */
+#define _DMA_CHWAITSTATUS_CH4WAITSTATUS_DEFAULT         0x00000001UL                                   /**< Mode DEFAULT for DMA_CHWAITSTATUS */
+#define DMA_CHWAITSTATUS_CH4WAITSTATUS_DEFAULT          (_DMA_CHWAITSTATUS_CH4WAITSTATUS_DEFAULT << 4) /**< Shifted mode DEFAULT for DMA_CHWAITSTATUS */
+#define DMA_CHWAITSTATUS_CH5WAITSTATUS                  (0x1UL << 5)                                   /**< Channel 5 Wait on Request Status */
+#define _DMA_CHWAITSTATUS_CH5WAITSTATUS_SHIFT           5                                              /**< Shift value for DMA_CH5WAITSTATUS */
+#define _DMA_CHWAITSTATUS_CH5WAITSTATUS_MASK            0x20UL                                         /**< Bit mask for DMA_CH5WAITSTATUS */
+#define _DMA_CHWAITSTATUS_CH5WAITSTATUS_DEFAULT         0x00000001UL                                   /**< Mode DEFAULT for DMA_CHWAITSTATUS */
+#define DMA_CHWAITSTATUS_CH5WAITSTATUS_DEFAULT          (_DMA_CHWAITSTATUS_CH5WAITSTATUS_DEFAULT << 5) /**< Shifted mode DEFAULT for DMA_CHWAITSTATUS */
+
+/* Bit fields for DMA CHSWREQ */
+#define _DMA_CHSWREQ_RESETVALUE                         0x00000000UL                         /**< Default value for DMA_CHSWREQ */
+#define _DMA_CHSWREQ_MASK                               0x0000003FUL                         /**< Mask for DMA_CHSWREQ */
+#define DMA_CHSWREQ_CH0SWREQ                            (0x1UL << 0)                         /**< Channel 0 Software Request */
+#define _DMA_CHSWREQ_CH0SWREQ_SHIFT                     0                                    /**< Shift value for DMA_CH0SWREQ */
+#define _DMA_CHSWREQ_CH0SWREQ_MASK                      0x1UL                                /**< Bit mask for DMA_CH0SWREQ */
+#define _DMA_CHSWREQ_CH0SWREQ_DEFAULT                   0x00000000UL                         /**< Mode DEFAULT for DMA_CHSWREQ */
+#define DMA_CHSWREQ_CH0SWREQ_DEFAULT                    (_DMA_CHSWREQ_CH0SWREQ_DEFAULT << 0) /**< Shifted mode DEFAULT for DMA_CHSWREQ */
+#define DMA_CHSWREQ_CH1SWREQ                            (0x1UL << 1)                         /**< Channel 1 Software Request */
+#define _DMA_CHSWREQ_CH1SWREQ_SHIFT                     1                                    /**< Shift value for DMA_CH1SWREQ */
+#define _DMA_CHSWREQ_CH1SWREQ_MASK                      0x2UL                                /**< Bit mask for DMA_CH1SWREQ */
+#define _DMA_CHSWREQ_CH1SWREQ_DEFAULT                   0x00000000UL                         /**< Mode DEFAULT for DMA_CHSWREQ */
+#define DMA_CHSWREQ_CH1SWREQ_DEFAULT                    (_DMA_CHSWREQ_CH1SWREQ_DEFAULT << 1) /**< Shifted mode DEFAULT for DMA_CHSWREQ */
+#define DMA_CHSWREQ_CH2SWREQ                            (0x1UL << 2)                         /**< Channel 2 Software Request */
+#define _DMA_CHSWREQ_CH2SWREQ_SHIFT                     2                                    /**< Shift value for DMA_CH2SWREQ */
+#define _DMA_CHSWREQ_CH2SWREQ_MASK                      0x4UL                                /**< Bit mask for DMA_CH2SWREQ */
+#define _DMA_CHSWREQ_CH2SWREQ_DEFAULT                   0x00000000UL                         /**< Mode DEFAULT for DMA_CHSWREQ */
+#define DMA_CHSWREQ_CH2SWREQ_DEFAULT                    (_DMA_CHSWREQ_CH2SWREQ_DEFAULT << 2) /**< Shifted mode DEFAULT for DMA_CHSWREQ */
+#define DMA_CHSWREQ_CH3SWREQ                            (0x1UL << 3)                         /**< Channel 3 Software Request */
+#define _DMA_CHSWREQ_CH3SWREQ_SHIFT                     3                                    /**< Shift value for DMA_CH3SWREQ */
+#define _DMA_CHSWREQ_CH3SWREQ_MASK                      0x8UL                                /**< Bit mask for DMA_CH3SWREQ */
+#define _DMA_CHSWREQ_CH3SWREQ_DEFAULT                   0x00000000UL                         /**< Mode DEFAULT for DMA_CHSWREQ */
+#define DMA_CHSWREQ_CH3SWREQ_DEFAULT                    (_DMA_CHSWREQ_CH3SWREQ_DEFAULT << 3) /**< Shifted mode DEFAULT for DMA_CHSWREQ */
+#define DMA_CHSWREQ_CH4SWREQ                            (0x1UL << 4)                         /**< Channel 4 Software Request */
+#define _DMA_CHSWREQ_CH4SWREQ_SHIFT                     4                                    /**< Shift value for DMA_CH4SWREQ */
+#define _DMA_CHSWREQ_CH4SWREQ_MASK                      0x10UL                               /**< Bit mask for DMA_CH4SWREQ */
+#define _DMA_CHSWREQ_CH4SWREQ_DEFAULT                   0x00000000UL                         /**< Mode DEFAULT for DMA_CHSWREQ */
+#define DMA_CHSWREQ_CH4SWREQ_DEFAULT                    (_DMA_CHSWREQ_CH4SWREQ_DEFAULT << 4) /**< Shifted mode DEFAULT for DMA_CHSWREQ */
+#define DMA_CHSWREQ_CH5SWREQ                            (0x1UL << 5)                         /**< Channel 5 Software Request */
+#define _DMA_CHSWREQ_CH5SWREQ_SHIFT                     5                                    /**< Shift value for DMA_CH5SWREQ */
+#define _DMA_CHSWREQ_CH5SWREQ_MASK                      0x20UL                               /**< Bit mask for DMA_CH5SWREQ */
+#define _DMA_CHSWREQ_CH5SWREQ_DEFAULT                   0x00000000UL                         /**< Mode DEFAULT for DMA_CHSWREQ */
+#define DMA_CHSWREQ_CH5SWREQ_DEFAULT                    (_DMA_CHSWREQ_CH5SWREQ_DEFAULT << 5) /**< Shifted mode DEFAULT for DMA_CHSWREQ */
+
+/* Bit fields for DMA CHUSEBURSTS */
+#define _DMA_CHUSEBURSTS_RESETVALUE                     0x00000000UL                                        /**< Default value for DMA_CHUSEBURSTS */
+#define _DMA_CHUSEBURSTS_MASK                           0x0000003FUL                                        /**< Mask for DMA_CHUSEBURSTS */
+#define DMA_CHUSEBURSTS_CH0USEBURSTS                    (0x1UL << 0)                                        /**< Channel 0 Useburst Set */
+#define _DMA_CHUSEBURSTS_CH0USEBURSTS_SHIFT             0                                                   /**< Shift value for DMA_CH0USEBURSTS */
+#define _DMA_CHUSEBURSTS_CH0USEBURSTS_MASK              0x1UL                                               /**< Bit mask for DMA_CH0USEBURSTS */
+#define _DMA_CHUSEBURSTS_CH0USEBURSTS_DEFAULT           0x00000000UL                                        /**< Mode DEFAULT for DMA_CHUSEBURSTS */
+#define _DMA_CHUSEBURSTS_CH0USEBURSTS_SINGLEANDBURST    0x00000000UL                                        /**< Mode SINGLEANDBURST for DMA_CHUSEBURSTS */
+#define _DMA_CHUSEBURSTS_CH0USEBURSTS_BURSTONLY         0x00000001UL                                        /**< Mode BURSTONLY for DMA_CHUSEBURSTS */
+#define DMA_CHUSEBURSTS_CH0USEBURSTS_DEFAULT            (_DMA_CHUSEBURSTS_CH0USEBURSTS_DEFAULT << 0)        /**< Shifted mode DEFAULT for DMA_CHUSEBURSTS */
+#define DMA_CHUSEBURSTS_CH0USEBURSTS_SINGLEANDBURST     (_DMA_CHUSEBURSTS_CH0USEBURSTS_SINGLEANDBURST << 0) /**< Shifted mode SINGLEANDBURST for DMA_CHUSEBURSTS */
+#define DMA_CHUSEBURSTS_CH0USEBURSTS_BURSTONLY          (_DMA_CHUSEBURSTS_CH0USEBURSTS_BURSTONLY << 0)      /**< Shifted mode BURSTONLY for DMA_CHUSEBURSTS */
+#define DMA_CHUSEBURSTS_CH1USEBURSTS                    (0x1UL << 1)                                        /**< Channel 1 Useburst Set */
+#define _DMA_CHUSEBURSTS_CH1USEBURSTS_SHIFT             1                                                   /**< Shift value for DMA_CH1USEBURSTS */
+#define _DMA_CHUSEBURSTS_CH1USEBURSTS_MASK              0x2UL                                               /**< Bit mask for DMA_CH1USEBURSTS */
+#define _DMA_CHUSEBURSTS_CH1USEBURSTS_DEFAULT           0x00000000UL                                        /**< Mode DEFAULT for DMA_CHUSEBURSTS */
+#define DMA_CHUSEBURSTS_CH1USEBURSTS_DEFAULT            (_DMA_CHUSEBURSTS_CH1USEBURSTS_DEFAULT << 1)        /**< Shifted mode DEFAULT for DMA_CHUSEBURSTS */
+#define DMA_CHUSEBURSTS_CH2USEBURSTS                    (0x1UL << 2)                                        /**< Channel 2 Useburst Set */
+#define _DMA_CHUSEBURSTS_CH2USEBURSTS_SHIFT             2                                                   /**< Shift value for DMA_CH2USEBURSTS */
+#define _DMA_CHUSEBURSTS_CH2USEBURSTS_MASK              0x4UL                                               /**< Bit mask for DMA_CH2USEBURSTS */
+#define _DMA_CHUSEBURSTS_CH2USEBURSTS_DEFAULT           0x00000000UL                                        /**< Mode DEFAULT for DMA_CHUSEBURSTS */
+#define DMA_CHUSEBURSTS_CH2USEBURSTS_DEFAULT            (_DMA_CHUSEBURSTS_CH2USEBURSTS_DEFAULT << 2)        /**< Shifted mode DEFAULT for DMA_CHUSEBURSTS */
+#define DMA_CHUSEBURSTS_CH3USEBURSTS                    (0x1UL << 3)                                        /**< Channel 3 Useburst Set */
+#define _DMA_CHUSEBURSTS_CH3USEBURSTS_SHIFT             3                                                   /**< Shift value for DMA_CH3USEBURSTS */
+#define _DMA_CHUSEBURSTS_CH3USEBURSTS_MASK              0x8UL                                               /**< Bit mask for DMA_CH3USEBURSTS */
+#define _DMA_CHUSEBURSTS_CH3USEBURSTS_DEFAULT           0x00000000UL                                        /**< Mode DEFAULT for DMA_CHUSEBURSTS */
+#define DMA_CHUSEBURSTS_CH3USEBURSTS_DEFAULT            (_DMA_CHUSEBURSTS_CH3USEBURSTS_DEFAULT << 3)        /**< Shifted mode DEFAULT for DMA_CHUSEBURSTS */
+#define DMA_CHUSEBURSTS_CH4USEBURSTS                    (0x1UL << 4)                                        /**< Channel 4 Useburst Set */
+#define _DMA_CHUSEBURSTS_CH4USEBURSTS_SHIFT             4                                                   /**< Shift value for DMA_CH4USEBURSTS */
+#define _DMA_CHUSEBURSTS_CH4USEBURSTS_MASK              0x10UL                                              /**< Bit mask for DMA_CH4USEBURSTS */
+#define _DMA_CHUSEBURSTS_CH4USEBURSTS_DEFAULT           0x00000000UL                                        /**< Mode DEFAULT for DMA_CHUSEBURSTS */
+#define DMA_CHUSEBURSTS_CH4USEBURSTS_DEFAULT            (_DMA_CHUSEBURSTS_CH4USEBURSTS_DEFAULT << 4)        /**< Shifted mode DEFAULT for DMA_CHUSEBURSTS */
+#define DMA_CHUSEBURSTS_CH5USEBURSTS                    (0x1UL << 5)                                        /**< Channel 5 Useburst Set */
+#define _DMA_CHUSEBURSTS_CH5USEBURSTS_SHIFT             5                                                   /**< Shift value for DMA_CH5USEBURSTS */
+#define _DMA_CHUSEBURSTS_CH5USEBURSTS_MASK              0x20UL                                              /**< Bit mask for DMA_CH5USEBURSTS */
+#define _DMA_CHUSEBURSTS_CH5USEBURSTS_DEFAULT           0x00000000UL                                        /**< Mode DEFAULT for DMA_CHUSEBURSTS */
+#define DMA_CHUSEBURSTS_CH5USEBURSTS_DEFAULT            (_DMA_CHUSEBURSTS_CH5USEBURSTS_DEFAULT << 5)        /**< Shifted mode DEFAULT for DMA_CHUSEBURSTS */
+
+/* Bit fields for DMA CHUSEBURSTC */
+#define _DMA_CHUSEBURSTC_RESETVALUE                     0x00000000UL                                 /**< Default value for DMA_CHUSEBURSTC */
+#define _DMA_CHUSEBURSTC_MASK                           0x0000003FUL                                 /**< Mask for DMA_CHUSEBURSTC */
+#define DMA_CHUSEBURSTC_CH0USEBURSTC                    (0x1UL << 0)                                 /**< Channel 0 Useburst Clear */
+#define _DMA_CHUSEBURSTC_CH0USEBURSTC_SHIFT             0                                            /**< Shift value for DMA_CH0USEBURSTC */
+#define _DMA_CHUSEBURSTC_CH0USEBURSTC_MASK              0x1UL                                        /**< Bit mask for DMA_CH0USEBURSTC */
+#define _DMA_CHUSEBURSTC_CH0USEBURSTC_DEFAULT           0x00000000UL                                 /**< Mode DEFAULT for DMA_CHUSEBURSTC */
+#define DMA_CHUSEBURSTC_CH0USEBURSTC_DEFAULT            (_DMA_CHUSEBURSTC_CH0USEBURSTC_DEFAULT << 0) /**< Shifted mode DEFAULT for DMA_CHUSEBURSTC */
+#define DMA_CHUSEBURSTC_CH1USEBURSTC                    (0x1UL << 1)                                 /**< Channel 1 Useburst Clear */
+#define _DMA_CHUSEBURSTC_CH1USEBURSTC_SHIFT             1                                            /**< Shift value for DMA_CH1USEBURSTC */
+#define _DMA_CHUSEBURSTC_CH1USEBURSTC_MASK              0x2UL                                        /**< Bit mask for DMA_CH1USEBURSTC */
+#define _DMA_CHUSEBURSTC_CH1USEBURSTC_DEFAULT           0x00000000UL                                 /**< Mode DEFAULT for DMA_CHUSEBURSTC */
+#define DMA_CHUSEBURSTC_CH1USEBURSTC_DEFAULT            (_DMA_CHUSEBURSTC_CH1USEBURSTC_DEFAULT << 1) /**< Shifted mode DEFAULT for DMA_CHUSEBURSTC */
+#define DMA_CHUSEBURSTC_CH2USEBURSTC                    (0x1UL << 2)                                 /**< Channel 2 Useburst Clear */
+#define _DMA_CHUSEBURSTC_CH2USEBURSTC_SHIFT             2                                            /**< Shift value for DMA_CH2USEBURSTC */
+#define _DMA_CHUSEBURSTC_CH2USEBURSTC_MASK              0x4UL                                        /**< Bit mask for DMA_CH2USEBURSTC */
+#define _DMA_CHUSEBURSTC_CH2USEBURSTC_DEFAULT           0x00000000UL                                 /**< Mode DEFAULT for DMA_CHUSEBURSTC */
+#define DMA_CHUSEBURSTC_CH2USEBURSTC_DEFAULT            (_DMA_CHUSEBURSTC_CH2USEBURSTC_DEFAULT << 2) /**< Shifted mode DEFAULT for DMA_CHUSEBURSTC */
+#define DMA_CHUSEBURSTC_CH3USEBURSTC                    (0x1UL << 3)                                 /**< Channel 3 Useburst Clear */
+#define _DMA_CHUSEBURSTC_CH3USEBURSTC_SHIFT             3                                            /**< Shift value for DMA_CH3USEBURSTC */
+#define _DMA_CHUSEBURSTC_CH3USEBURSTC_MASK              0x8UL                                        /**< Bit mask for DMA_CH3USEBURSTC */
+#define _DMA_CHUSEBURSTC_CH3USEBURSTC_DEFAULT           0x00000000UL                                 /**< Mode DEFAULT for DMA_CHUSEBURSTC */
+#define DMA_CHUSEBURSTC_CH3USEBURSTC_DEFAULT            (_DMA_CHUSEBURSTC_CH3USEBURSTC_DEFAULT << 3) /**< Shifted mode DEFAULT for DMA_CHUSEBURSTC */
+#define DMA_CHUSEBURSTC_CH4USEBURSTC                    (0x1UL << 4)                                 /**< Channel 4 Useburst Clear */
+#define _DMA_CHUSEBURSTC_CH4USEBURSTC_SHIFT             4                                            /**< Shift value for DMA_CH4USEBURSTC */
+#define _DMA_CHUSEBURSTC_CH4USEBURSTC_MASK              0x10UL                                       /**< Bit mask for DMA_CH4USEBURSTC */
+#define _DMA_CHUSEBURSTC_CH4USEBURSTC_DEFAULT           0x00000000UL                                 /**< Mode DEFAULT for DMA_CHUSEBURSTC */
+#define DMA_CHUSEBURSTC_CH4USEBURSTC_DEFAULT            (_DMA_CHUSEBURSTC_CH4USEBURSTC_DEFAULT << 4) /**< Shifted mode DEFAULT for DMA_CHUSEBURSTC */
+#define DMA_CHUSEBURSTC_CH5USEBURSTC                    (0x1UL << 5)                                 /**< Channel 5 Useburst Clear */
+#define _DMA_CHUSEBURSTC_CH5USEBURSTC_SHIFT             5                                            /**< Shift value for DMA_CH5USEBURSTC */
+#define _DMA_CHUSEBURSTC_CH5USEBURSTC_MASK              0x20UL                                       /**< Bit mask for DMA_CH5USEBURSTC */
+#define _DMA_CHUSEBURSTC_CH5USEBURSTC_DEFAULT           0x00000000UL                                 /**< Mode DEFAULT for DMA_CHUSEBURSTC */
+#define DMA_CHUSEBURSTC_CH5USEBURSTC_DEFAULT            (_DMA_CHUSEBURSTC_CH5USEBURSTC_DEFAULT << 5) /**< Shifted mode DEFAULT for DMA_CHUSEBURSTC */
+
+/* Bit fields for DMA CHREQMASKS */
+#define _DMA_CHREQMASKS_RESETVALUE                      0x00000000UL                               /**< Default value for DMA_CHREQMASKS */
+#define _DMA_CHREQMASKS_MASK                            0x0000003FUL                               /**< Mask for DMA_CHREQMASKS */
+#define DMA_CHREQMASKS_CH0REQMASKS                      (0x1UL << 0)                               /**< Channel 0 Request Mask Set */
+#define _DMA_CHREQMASKS_CH0REQMASKS_SHIFT               0                                          /**< Shift value for DMA_CH0REQMASKS */
+#define _DMA_CHREQMASKS_CH0REQMASKS_MASK                0x1UL                                      /**< Bit mask for DMA_CH0REQMASKS */
+#define _DMA_CHREQMASKS_CH0REQMASKS_DEFAULT             0x00000000UL                               /**< Mode DEFAULT for DMA_CHREQMASKS */
+#define DMA_CHREQMASKS_CH0REQMASKS_DEFAULT              (_DMA_CHREQMASKS_CH0REQMASKS_DEFAULT << 0) /**< Shifted mode DEFAULT for DMA_CHREQMASKS */
+#define DMA_CHREQMASKS_CH1REQMASKS                      (0x1UL << 1)                               /**< Channel 1 Request Mask Set */
+#define _DMA_CHREQMASKS_CH1REQMASKS_SHIFT               1                                          /**< Shift value for DMA_CH1REQMASKS */
+#define _DMA_CHREQMASKS_CH1REQMASKS_MASK                0x2UL                                      /**< Bit mask for DMA_CH1REQMASKS */
+#define _DMA_CHREQMASKS_CH1REQMASKS_DEFAULT             0x00000000UL                               /**< Mode DEFAULT for DMA_CHREQMASKS */
+#define DMA_CHREQMASKS_CH1REQMASKS_DEFAULT              (_DMA_CHREQMASKS_CH1REQMASKS_DEFAULT << 1) /**< Shifted mode DEFAULT for DMA_CHREQMASKS */
+#define DMA_CHREQMASKS_CH2REQMASKS                      (0x1UL << 2)                               /**< Channel 2 Request Mask Set */
+#define _DMA_CHREQMASKS_CH2REQMASKS_SHIFT               2                                          /**< Shift value for DMA_CH2REQMASKS */
+#define _DMA_CHREQMASKS_CH2REQMASKS_MASK                0x4UL                                      /**< Bit mask for DMA_CH2REQMASKS */
+#define _DMA_CHREQMASKS_CH2REQMASKS_DEFAULT             0x00000000UL                               /**< Mode DEFAULT for DMA_CHREQMASKS */
+#define DMA_CHREQMASKS_CH2REQMASKS_DEFAULT              (_DMA_CHREQMASKS_CH2REQMASKS_DEFAULT << 2) /**< Shifted mode DEFAULT for DMA_CHREQMASKS */
+#define DMA_CHREQMASKS_CH3REQMASKS                      (0x1UL << 3)                               /**< Channel 3 Request Mask Set */
+#define _DMA_CHREQMASKS_CH3REQMASKS_SHIFT               3                                          /**< Shift value for DMA_CH3REQMASKS */
+#define _DMA_CHREQMASKS_CH3REQMASKS_MASK                0x8UL                                      /**< Bit mask for DMA_CH3REQMASKS */
+#define _DMA_CHREQMASKS_CH3REQMASKS_DEFAULT             0x00000000UL                               /**< Mode DEFAULT for DMA_CHREQMASKS */
+#define DMA_CHREQMASKS_CH3REQMASKS_DEFAULT              (_DMA_CHREQMASKS_CH3REQMASKS_DEFAULT << 3) /**< Shifted mode DEFAULT for DMA_CHREQMASKS */
+#define DMA_CHREQMASKS_CH4REQMASKS                      (0x1UL << 4)                               /**< Channel 4 Request Mask Set */
+#define _DMA_CHREQMASKS_CH4REQMASKS_SHIFT               4                                          /**< Shift value for DMA_CH4REQMASKS */
+#define _DMA_CHREQMASKS_CH4REQMASKS_MASK                0x10UL                                     /**< Bit mask for DMA_CH4REQMASKS */
+#define _DMA_CHREQMASKS_CH4REQMASKS_DEFAULT             0x00000000UL                               /**< Mode DEFAULT for DMA_CHREQMASKS */
+#define DMA_CHREQMASKS_CH4REQMASKS_DEFAULT              (_DMA_CHREQMASKS_CH4REQMASKS_DEFAULT << 4) /**< Shifted mode DEFAULT for DMA_CHREQMASKS */
+#define DMA_CHREQMASKS_CH5REQMASKS                      (0x1UL << 5)                               /**< Channel 5 Request Mask Set */
+#define _DMA_CHREQMASKS_CH5REQMASKS_SHIFT               5                                          /**< Shift value for DMA_CH5REQMASKS */
+#define _DMA_CHREQMASKS_CH5REQMASKS_MASK                0x20UL                                     /**< Bit mask for DMA_CH5REQMASKS */
+#define _DMA_CHREQMASKS_CH5REQMASKS_DEFAULT             0x00000000UL                               /**< Mode DEFAULT for DMA_CHREQMASKS */
+#define DMA_CHREQMASKS_CH5REQMASKS_DEFAULT              (_DMA_CHREQMASKS_CH5REQMASKS_DEFAULT << 5) /**< Shifted mode DEFAULT for DMA_CHREQMASKS */
+
+/* Bit fields for DMA CHREQMASKC */
+#define _DMA_CHREQMASKC_RESETVALUE                      0x00000000UL                               /**< Default value for DMA_CHREQMASKC */
+#define _DMA_CHREQMASKC_MASK                            0x0000003FUL                               /**< Mask for DMA_CHREQMASKC */
+#define DMA_CHREQMASKC_CH0REQMASKC                      (0x1UL << 0)                               /**< Channel 0 Request Mask Clear */
+#define _DMA_CHREQMASKC_CH0REQMASKC_SHIFT               0                                          /**< Shift value for DMA_CH0REQMASKC */
+#define _DMA_CHREQMASKC_CH0REQMASKC_MASK                0x1UL                                      /**< Bit mask for DMA_CH0REQMASKC */
+#define _DMA_CHREQMASKC_CH0REQMASKC_DEFAULT             0x00000000UL                               /**< Mode DEFAULT for DMA_CHREQMASKC */
+#define DMA_CHREQMASKC_CH0REQMASKC_DEFAULT              (_DMA_CHREQMASKC_CH0REQMASKC_DEFAULT << 0) /**< Shifted mode DEFAULT for DMA_CHREQMASKC */
+#define DMA_CHREQMASKC_CH1REQMASKC                      (0x1UL << 1)                               /**< Channel 1 Request Mask Clear */
+#define _DMA_CHREQMASKC_CH1REQMASKC_SHIFT               1                                          /**< Shift value for DMA_CH1REQMASKC */
+#define _DMA_CHREQMASKC_CH1REQMASKC_MASK                0x2UL                                      /**< Bit mask for DMA_CH1REQMASKC */
+#define _DMA_CHREQMASKC_CH1REQMASKC_DEFAULT             0x00000000UL                               /**< Mode DEFAULT for DMA_CHREQMASKC */
+#define DMA_CHREQMASKC_CH1REQMASKC_DEFAULT              (_DMA_CHREQMASKC_CH1REQMASKC_DEFAULT << 1) /**< Shifted mode DEFAULT for DMA_CHREQMASKC */
+#define DMA_CHREQMASKC_CH2REQMASKC                      (0x1UL << 2)                               /**< Channel 2 Request Mask Clear */
+#define _DMA_CHREQMASKC_CH2REQMASKC_SHIFT               2                                          /**< Shift value for DMA_CH2REQMASKC */
+#define _DMA_CHREQMASKC_CH2REQMASKC_MASK                0x4UL                                      /**< Bit mask for DMA_CH2REQMASKC */
+#define _DMA_CHREQMASKC_CH2REQMASKC_DEFAULT             0x00000000UL                               /**< Mode DEFAULT for DMA_CHREQMASKC */
+#define DMA_CHREQMASKC_CH2REQMASKC_DEFAULT              (_DMA_CHREQMASKC_CH2REQMASKC_DEFAULT << 2) /**< Shifted mode DEFAULT for DMA_CHREQMASKC */
+#define DMA_CHREQMASKC_CH3REQMASKC                      (0x1UL << 3)                               /**< Channel 3 Request Mask Clear */
+#define _DMA_CHREQMASKC_CH3REQMASKC_SHIFT               3                                          /**< Shift value for DMA_CH3REQMASKC */
+#define _DMA_CHREQMASKC_CH3REQMASKC_MASK                0x8UL                                      /**< Bit mask for DMA_CH3REQMASKC */
+#define _DMA_CHREQMASKC_CH3REQMASKC_DEFAULT             0x00000000UL                               /**< Mode DEFAULT for DMA_CHREQMASKC */
+#define DMA_CHREQMASKC_CH3REQMASKC_DEFAULT              (_DMA_CHREQMASKC_CH3REQMASKC_DEFAULT << 3) /**< Shifted mode DEFAULT for DMA_CHREQMASKC */
+#define DMA_CHREQMASKC_CH4REQMASKC                      (0x1UL << 4)                               /**< Channel 4 Request Mask Clear */
+#define _DMA_CHREQMASKC_CH4REQMASKC_SHIFT               4                                          /**< Shift value for DMA_CH4REQMASKC */
+#define _DMA_CHREQMASKC_CH4REQMASKC_MASK                0x10UL                                     /**< Bit mask for DMA_CH4REQMASKC */
+#define _DMA_CHREQMASKC_CH4REQMASKC_DEFAULT             0x00000000UL                               /**< Mode DEFAULT for DMA_CHREQMASKC */
+#define DMA_CHREQMASKC_CH4REQMASKC_DEFAULT              (_DMA_CHREQMASKC_CH4REQMASKC_DEFAULT << 4) /**< Shifted mode DEFAULT for DMA_CHREQMASKC */
+#define DMA_CHREQMASKC_CH5REQMASKC                      (0x1UL << 5)                               /**< Channel 5 Request Mask Clear */
+#define _DMA_CHREQMASKC_CH5REQMASKC_SHIFT               5                                          /**< Shift value for DMA_CH5REQMASKC */
+#define _DMA_CHREQMASKC_CH5REQMASKC_MASK                0x20UL                                     /**< Bit mask for DMA_CH5REQMASKC */
+#define _DMA_CHREQMASKC_CH5REQMASKC_DEFAULT             0x00000000UL                               /**< Mode DEFAULT for DMA_CHREQMASKC */
+#define DMA_CHREQMASKC_CH5REQMASKC_DEFAULT              (_DMA_CHREQMASKC_CH5REQMASKC_DEFAULT << 5) /**< Shifted mode DEFAULT for DMA_CHREQMASKC */
+
+/* Bit fields for DMA CHENS */
+#define _DMA_CHENS_RESETVALUE                           0x00000000UL                     /**< Default value for DMA_CHENS */
+#define _DMA_CHENS_MASK                                 0x0000003FUL                     /**< Mask for DMA_CHENS */
+#define DMA_CHENS_CH0ENS                                (0x1UL << 0)                     /**< Channel 0 Enable Set */
+#define _DMA_CHENS_CH0ENS_SHIFT                         0                                /**< Shift value for DMA_CH0ENS */
+#define _DMA_CHENS_CH0ENS_MASK                          0x1UL                            /**< Bit mask for DMA_CH0ENS */
+#define _DMA_CHENS_CH0ENS_DEFAULT                       0x00000000UL                     /**< Mode DEFAULT for DMA_CHENS */
+#define DMA_CHENS_CH0ENS_DEFAULT                        (_DMA_CHENS_CH0ENS_DEFAULT << 0) /**< Shifted mode DEFAULT for DMA_CHENS */
+#define DMA_CHENS_CH1ENS                                (0x1UL << 1)                     /**< Channel 1 Enable Set */
+#define _DMA_CHENS_CH1ENS_SHIFT                         1                                /**< Shift value for DMA_CH1ENS */
+#define _DMA_CHENS_CH1ENS_MASK                          0x2UL                            /**< Bit mask for DMA_CH1ENS */
+#define _DMA_CHENS_CH1ENS_DEFAULT                       0x00000000UL                     /**< Mode DEFAULT for DMA_CHENS */
+#define DMA_CHENS_CH1ENS_DEFAULT                        (_DMA_CHENS_CH1ENS_DEFAULT << 1) /**< Shifted mode DEFAULT for DMA_CHENS */
+#define DMA_CHENS_CH2ENS                                (0x1UL << 2)                     /**< Channel 2 Enable Set */
+#define _DMA_CHENS_CH2ENS_SHIFT                         2                                /**< Shift value for DMA_CH2ENS */
+#define _DMA_CHENS_CH2ENS_MASK                          0x4UL                            /**< Bit mask for DMA_CH2ENS */
+#define _DMA_CHENS_CH2ENS_DEFAULT                       0x00000000UL                     /**< Mode DEFAULT for DMA_CHENS */
+#define DMA_CHENS_CH2ENS_DEFAULT                        (_DMA_CHENS_CH2ENS_DEFAULT << 2) /**< Shifted mode DEFAULT for DMA_CHENS */
+#define DMA_CHENS_CH3ENS                                (0x1UL << 3)                     /**< Channel 3 Enable Set */
+#define _DMA_CHENS_CH3ENS_SHIFT                         3                                /**< Shift value for DMA_CH3ENS */
+#define _DMA_CHENS_CH3ENS_MASK                          0x8UL                            /**< Bit mask for DMA_CH3ENS */
+#define _DMA_CHENS_CH3ENS_DEFAULT                       0x00000000UL                     /**< Mode DEFAULT for DMA_CHENS */
+#define DMA_CHENS_CH3ENS_DEFAULT                        (_DMA_CHENS_CH3ENS_DEFAULT << 3) /**< Shifted mode DEFAULT for DMA_CHENS */
+#define DMA_CHENS_CH4ENS                                (0x1UL << 4)                     /**< Channel 4 Enable Set */
+#define _DMA_CHENS_CH4ENS_SHIFT                         4                                /**< Shift value for DMA_CH4ENS */
+#define _DMA_CHENS_CH4ENS_MASK                          0x10UL                           /**< Bit mask for DMA_CH4ENS */
+#define _DMA_CHENS_CH4ENS_DEFAULT                       0x00000000UL                     /**< Mode DEFAULT for DMA_CHENS */
+#define DMA_CHENS_CH4ENS_DEFAULT                        (_DMA_CHENS_CH4ENS_DEFAULT << 4) /**< Shifted mode DEFAULT for DMA_CHENS */
+#define DMA_CHENS_CH5ENS                                (0x1UL << 5)                     /**< Channel 5 Enable Set */
+#define _DMA_CHENS_CH5ENS_SHIFT                         5                                /**< Shift value for DMA_CH5ENS */
+#define _DMA_CHENS_CH5ENS_MASK                          0x20UL                           /**< Bit mask for DMA_CH5ENS */
+#define _DMA_CHENS_CH5ENS_DEFAULT                       0x00000000UL                     /**< Mode DEFAULT for DMA_CHENS */
+#define DMA_CHENS_CH5ENS_DEFAULT                        (_DMA_CHENS_CH5ENS_DEFAULT << 5) /**< Shifted mode DEFAULT for DMA_CHENS */
+
+/* Bit fields for DMA CHENC */
+#define _DMA_CHENC_RESETVALUE                           0x00000000UL                     /**< Default value for DMA_CHENC */
+#define _DMA_CHENC_MASK                                 0x0000003FUL                     /**< Mask for DMA_CHENC */
+#define DMA_CHENC_CH0ENC                                (0x1UL << 0)                     /**< Channel 0 Enable Clear */
+#define _DMA_CHENC_CH0ENC_SHIFT                         0                                /**< Shift value for DMA_CH0ENC */
+#define _DMA_CHENC_CH0ENC_MASK                          0x1UL                            /**< Bit mask for DMA_CH0ENC */
+#define _DMA_CHENC_CH0ENC_DEFAULT                       0x00000000UL                     /**< Mode DEFAULT for DMA_CHENC */
+#define DMA_CHENC_CH0ENC_DEFAULT                        (_DMA_CHENC_CH0ENC_DEFAULT << 0) /**< Shifted mode DEFAULT for DMA_CHENC */
+#define DMA_CHENC_CH1ENC                                (0x1UL << 1)                     /**< Channel 1 Enable Clear */
+#define _DMA_CHENC_CH1ENC_SHIFT                         1                                /**< Shift value for DMA_CH1ENC */
+#define _DMA_CHENC_CH1ENC_MASK                          0x2UL                            /**< Bit mask for DMA_CH1ENC */
+#define _DMA_CHENC_CH1ENC_DEFAULT                       0x00000000UL                     /**< Mode DEFAULT for DMA_CHENC */
+#define DMA_CHENC_CH1ENC_DEFAULT                        (_DMA_CHENC_CH1ENC_DEFAULT << 1) /**< Shifted mode DEFAULT for DMA_CHENC */
+#define DMA_CHENC_CH2ENC                                (0x1UL << 2)                     /**< Channel 2 Enable Clear */
+#define _DMA_CHENC_CH2ENC_SHIFT                         2                                /**< Shift value for DMA_CH2ENC */
+#define _DMA_CHENC_CH2ENC_MASK                          0x4UL                            /**< Bit mask for DMA_CH2ENC */
+#define _DMA_CHENC_CH2ENC_DEFAULT                       0x00000000UL                     /**< Mode DEFAULT for DMA_CHENC */
+#define DMA_CHENC_CH2ENC_DEFAULT                        (_DMA_CHENC_CH2ENC_DEFAULT << 2) /**< Shifted mode DEFAULT for DMA_CHENC */
+#define DMA_CHENC_CH3ENC                                (0x1UL << 3)                     /**< Channel 3 Enable Clear */
+#define _DMA_CHENC_CH3ENC_SHIFT                         3                                /**< Shift value for DMA_CH3ENC */
+#define _DMA_CHENC_CH3ENC_MASK                          0x8UL                            /**< Bit mask for DMA_CH3ENC */
+#define _DMA_CHENC_CH3ENC_DEFAULT                       0x00000000UL                     /**< Mode DEFAULT for DMA_CHENC */
+#define DMA_CHENC_CH3ENC_DEFAULT                        (_DMA_CHENC_CH3ENC_DEFAULT << 3) /**< Shifted mode DEFAULT for DMA_CHENC */
+#define DMA_CHENC_CH4ENC                                (0x1UL << 4)                     /**< Channel 4 Enable Clear */
+#define _DMA_CHENC_CH4ENC_SHIFT                         4                                /**< Shift value for DMA_CH4ENC */
+#define _DMA_CHENC_CH4ENC_MASK                          0x10UL                           /**< Bit mask for DMA_CH4ENC */
+#define _DMA_CHENC_CH4ENC_DEFAULT                       0x00000000UL                     /**< Mode DEFAULT for DMA_CHENC */
+#define DMA_CHENC_CH4ENC_DEFAULT                        (_DMA_CHENC_CH4ENC_DEFAULT << 4) /**< Shifted mode DEFAULT for DMA_CHENC */
+#define DMA_CHENC_CH5ENC                                (0x1UL << 5)                     /**< Channel 5 Enable Clear */
+#define _DMA_CHENC_CH5ENC_SHIFT                         5                                /**< Shift value for DMA_CH5ENC */
+#define _DMA_CHENC_CH5ENC_MASK                          0x20UL                           /**< Bit mask for DMA_CH5ENC */
+#define _DMA_CHENC_CH5ENC_DEFAULT                       0x00000000UL                     /**< Mode DEFAULT for DMA_CHENC */
+#define DMA_CHENC_CH5ENC_DEFAULT                        (_DMA_CHENC_CH5ENC_DEFAULT << 5) /**< Shifted mode DEFAULT for DMA_CHENC */
+
+/* Bit fields for DMA CHALTS */
+#define _DMA_CHALTS_RESETVALUE                          0x00000000UL                       /**< Default value for DMA_CHALTS */
+#define _DMA_CHALTS_MASK                                0x0000003FUL                       /**< Mask for DMA_CHALTS */
+#define DMA_CHALTS_CH0ALTS                              (0x1UL << 0)                       /**< Channel 0 Alternate Structure Set */
+#define _DMA_CHALTS_CH0ALTS_SHIFT                       0                                  /**< Shift value for DMA_CH0ALTS */
+#define _DMA_CHALTS_CH0ALTS_MASK                        0x1UL                              /**< Bit mask for DMA_CH0ALTS */
+#define _DMA_CHALTS_CH0ALTS_DEFAULT                     0x00000000UL                       /**< Mode DEFAULT for DMA_CHALTS */
+#define DMA_CHALTS_CH0ALTS_DEFAULT                      (_DMA_CHALTS_CH0ALTS_DEFAULT << 0) /**< Shifted mode DEFAULT for DMA_CHALTS */
+#define DMA_CHALTS_CH1ALTS                              (0x1UL << 1)                       /**< Channel 1 Alternate Structure Set */
+#define _DMA_CHALTS_CH1ALTS_SHIFT                       1                                  /**< Shift value for DMA_CH1ALTS */
+#define _DMA_CHALTS_CH1ALTS_MASK                        0x2UL                              /**< Bit mask for DMA_CH1ALTS */
+#define _DMA_CHALTS_CH1ALTS_DEFAULT                     0x00000000UL                       /**< Mode DEFAULT for DMA_CHALTS */
+#define DMA_CHALTS_CH1ALTS_DEFAULT                      (_DMA_CHALTS_CH1ALTS_DEFAULT << 1) /**< Shifted mode DEFAULT for DMA_CHALTS */
+#define DMA_CHALTS_CH2ALTS                              (0x1UL << 2)                       /**< Channel 2 Alternate Structure Set */
+#define _DMA_CHALTS_CH2ALTS_SHIFT                       2                                  /**< Shift value for DMA_CH2ALTS */
+#define _DMA_CHALTS_CH2ALTS_MASK                        0x4UL                              /**< Bit mask for DMA_CH2ALTS */
+#define _DMA_CHALTS_CH2ALTS_DEFAULT                     0x00000000UL                       /**< Mode DEFAULT for DMA_CHALTS */
+#define DMA_CHALTS_CH2ALTS_DEFAULT                      (_DMA_CHALTS_CH2ALTS_DEFAULT << 2) /**< Shifted mode DEFAULT for DMA_CHALTS */
+#define DMA_CHALTS_CH3ALTS                              (0x1UL << 3)                       /**< Channel 3 Alternate Structure Set */
+#define _DMA_CHALTS_CH3ALTS_SHIFT                       3                                  /**< Shift value for DMA_CH3ALTS */
+#define _DMA_CHALTS_CH3ALTS_MASK                        0x8UL                              /**< Bit mask for DMA_CH3ALTS */
+#define _DMA_CHALTS_CH3ALTS_DEFAULT                     0x00000000UL                       /**< Mode DEFAULT for DMA_CHALTS */
+#define DMA_CHALTS_CH3ALTS_DEFAULT                      (_DMA_CHALTS_CH3ALTS_DEFAULT << 3) /**< Shifted mode DEFAULT for DMA_CHALTS */
+#define DMA_CHALTS_CH4ALTS                              (0x1UL << 4)                       /**< Channel 4 Alternate Structure Set */
+#define _DMA_CHALTS_CH4ALTS_SHIFT                       4                                  /**< Shift value for DMA_CH4ALTS */
+#define _DMA_CHALTS_CH4ALTS_MASK                        0x10UL                             /**< Bit mask for DMA_CH4ALTS */
+#define _DMA_CHALTS_CH4ALTS_DEFAULT                     0x00000000UL                       /**< Mode DEFAULT for DMA_CHALTS */
+#define DMA_CHALTS_CH4ALTS_DEFAULT                      (_DMA_CHALTS_CH4ALTS_DEFAULT << 4) /**< Shifted mode DEFAULT for DMA_CHALTS */
+#define DMA_CHALTS_CH5ALTS                              (0x1UL << 5)                       /**< Channel 5 Alternate Structure Set */
+#define _DMA_CHALTS_CH5ALTS_SHIFT                       5                                  /**< Shift value for DMA_CH5ALTS */
+#define _DMA_CHALTS_CH5ALTS_MASK                        0x20UL                             /**< Bit mask for DMA_CH5ALTS */
+#define _DMA_CHALTS_CH5ALTS_DEFAULT                     0x00000000UL                       /**< Mode DEFAULT for DMA_CHALTS */
+#define DMA_CHALTS_CH5ALTS_DEFAULT                      (_DMA_CHALTS_CH5ALTS_DEFAULT << 5) /**< Shifted mode DEFAULT for DMA_CHALTS */
+
+/* Bit fields for DMA CHALTC */
+#define _DMA_CHALTC_RESETVALUE                          0x00000000UL                       /**< Default value for DMA_CHALTC */
+#define _DMA_CHALTC_MASK                                0x0000003FUL                       /**< Mask for DMA_CHALTC */
+#define DMA_CHALTC_CH0ALTC                              (0x1UL << 0)                       /**< Channel 0 Alternate Clear */
+#define _DMA_CHALTC_CH0ALTC_SHIFT                       0                                  /**< Shift value for DMA_CH0ALTC */
+#define _DMA_CHALTC_CH0ALTC_MASK                        0x1UL                              /**< Bit mask for DMA_CH0ALTC */
+#define _DMA_CHALTC_CH0ALTC_DEFAULT                     0x00000000UL                       /**< Mode DEFAULT for DMA_CHALTC */
+#define DMA_CHALTC_CH0ALTC_DEFAULT                      (_DMA_CHALTC_CH0ALTC_DEFAULT << 0) /**< Shifted mode DEFAULT for DMA_CHALTC */
+#define DMA_CHALTC_CH1ALTC                              (0x1UL << 1)                       /**< Channel 1 Alternate Clear */
+#define _DMA_CHALTC_CH1ALTC_SHIFT                       1                                  /**< Shift value for DMA_CH1ALTC */
+#define _DMA_CHALTC_CH1ALTC_MASK                        0x2UL                              /**< Bit mask for DMA_CH1ALTC */
+#define _DMA_CHALTC_CH1ALTC_DEFAULT                     0x00000000UL                       /**< Mode DEFAULT for DMA_CHALTC */
+#define DMA_CHALTC_CH1ALTC_DEFAULT                      (_DMA_CHALTC_CH1ALTC_DEFAULT << 1) /**< Shifted mode DEFAULT for DMA_CHALTC */
+#define DMA_CHALTC_CH2ALTC                              (0x1UL << 2)                       /**< Channel 2 Alternate Clear */
+#define _DMA_CHALTC_CH2ALTC_SHIFT                       2                                  /**< Shift value for DMA_CH2ALTC */
+#define _DMA_CHALTC_CH2ALTC_MASK                        0x4UL                              /**< Bit mask for DMA_CH2ALTC */
+#define _DMA_CHALTC_CH2ALTC_DEFAULT                     0x00000000UL                       /**< Mode DEFAULT for DMA_CHALTC */
+#define DMA_CHALTC_CH2ALTC_DEFAULT                      (_DMA_CHALTC_CH2ALTC_DEFAULT << 2) /**< Shifted mode DEFAULT for DMA_CHALTC */
+#define DMA_CHALTC_CH3ALTC                              (0x1UL << 3)                       /**< Channel 3 Alternate Clear */
+#define _DMA_CHALTC_CH3ALTC_SHIFT                       3                                  /**< Shift value for DMA_CH3ALTC */
+#define _DMA_CHALTC_CH3ALTC_MASK                        0x8UL                              /**< Bit mask for DMA_CH3ALTC */
+#define _DMA_CHALTC_CH3ALTC_DEFAULT                     0x00000000UL                       /**< Mode DEFAULT for DMA_CHALTC */
+#define DMA_CHALTC_CH3ALTC_DEFAULT                      (_DMA_CHALTC_CH3ALTC_DEFAULT << 3) /**< Shifted mode DEFAULT for DMA_CHALTC */
+#define DMA_CHALTC_CH4ALTC                              (0x1UL << 4)                       /**< Channel 4 Alternate Clear */
+#define _DMA_CHALTC_CH4ALTC_SHIFT                       4                                  /**< Shift value for DMA_CH4ALTC */
+#define _DMA_CHALTC_CH4ALTC_MASK                        0x10UL                             /**< Bit mask for DMA_CH4ALTC */
+#define _DMA_CHALTC_CH4ALTC_DEFAULT                     0x00000000UL                       /**< Mode DEFAULT for DMA_CHALTC */
+#define DMA_CHALTC_CH4ALTC_DEFAULT                      (_DMA_CHALTC_CH4ALTC_DEFAULT << 4) /**< Shifted mode DEFAULT for DMA_CHALTC */
+#define DMA_CHALTC_CH5ALTC                              (0x1UL << 5)                       /**< Channel 5 Alternate Clear */
+#define _DMA_CHALTC_CH5ALTC_SHIFT                       5                                  /**< Shift value for DMA_CH5ALTC */
+#define _DMA_CHALTC_CH5ALTC_MASK                        0x20UL                             /**< Bit mask for DMA_CH5ALTC */
+#define _DMA_CHALTC_CH5ALTC_DEFAULT                     0x00000000UL                       /**< Mode DEFAULT for DMA_CHALTC */
+#define DMA_CHALTC_CH5ALTC_DEFAULT                      (_DMA_CHALTC_CH5ALTC_DEFAULT << 5) /**< Shifted mode DEFAULT for DMA_CHALTC */
+
+/* Bit fields for DMA CHPRIS */
+#define _DMA_CHPRIS_RESETVALUE                          0x00000000UL                       /**< Default value for DMA_CHPRIS */
+#define _DMA_CHPRIS_MASK                                0x0000003FUL                       /**< Mask for DMA_CHPRIS */
+#define DMA_CHPRIS_CH0PRIS                              (0x1UL << 0)                       /**< Channel 0 High Priority Set */
+#define _DMA_CHPRIS_CH0PRIS_SHIFT                       0                                  /**< Shift value for DMA_CH0PRIS */
+#define _DMA_CHPRIS_CH0PRIS_MASK                        0x1UL                              /**< Bit mask for DMA_CH0PRIS */
+#define _DMA_CHPRIS_CH0PRIS_DEFAULT                     0x00000000UL                       /**< Mode DEFAULT for DMA_CHPRIS */
+#define DMA_CHPRIS_CH0PRIS_DEFAULT                      (_DMA_CHPRIS_CH0PRIS_DEFAULT << 0) /**< Shifted mode DEFAULT for DMA_CHPRIS */
+#define DMA_CHPRIS_CH1PRIS                              (0x1UL << 1)                       /**< Channel 1 High Priority Set */
+#define _DMA_CHPRIS_CH1PRIS_SHIFT                       1                                  /**< Shift value for DMA_CH1PRIS */
+#define _DMA_CHPRIS_CH1PRIS_MASK                        0x2UL                              /**< Bit mask for DMA_CH1PRIS */
+#define _DMA_CHPRIS_CH1PRIS_DEFAULT                     0x00000000UL                       /**< Mode DEFAULT for DMA_CHPRIS */
+#define DMA_CHPRIS_CH1PRIS_DEFAULT                      (_DMA_CHPRIS_CH1PRIS_DEFAULT << 1) /**< Shifted mode DEFAULT for DMA_CHPRIS */
+#define DMA_CHPRIS_CH2PRIS                              (0x1UL << 2)                       /**< Channel 2 High Priority Set */
+#define _DMA_CHPRIS_CH2PRIS_SHIFT                       2                                  /**< Shift value for DMA_CH2PRIS */
+#define _DMA_CHPRIS_CH2PRIS_MASK                        0x4UL                              /**< Bit mask for DMA_CH2PRIS */
+#define _DMA_CHPRIS_CH2PRIS_DEFAULT                     0x00000000UL                       /**< Mode DEFAULT for DMA_CHPRIS */
+#define DMA_CHPRIS_CH2PRIS_DEFAULT                      (_DMA_CHPRIS_CH2PRIS_DEFAULT << 2) /**< Shifted mode DEFAULT for DMA_CHPRIS */
+#define DMA_CHPRIS_CH3PRIS                              (0x1UL << 3)                       /**< Channel 3 High Priority Set */
+#define _DMA_CHPRIS_CH3PRIS_SHIFT                       3                                  /**< Shift value for DMA_CH3PRIS */
+#define _DMA_CHPRIS_CH3PRIS_MASK                        0x8UL                              /**< Bit mask for DMA_CH3PRIS */
+#define _DMA_CHPRIS_CH3PRIS_DEFAULT                     0x00000000UL                       /**< Mode DEFAULT for DMA_CHPRIS */
+#define DMA_CHPRIS_CH3PRIS_DEFAULT                      (_DMA_CHPRIS_CH3PRIS_DEFAULT << 3) /**< Shifted mode DEFAULT for DMA_CHPRIS */
+#define DMA_CHPRIS_CH4PRIS                              (0x1UL << 4)                       /**< Channel 4 High Priority Set */
+#define _DMA_CHPRIS_CH4PRIS_SHIFT                       4                                  /**< Shift value for DMA_CH4PRIS */
+#define _DMA_CHPRIS_CH4PRIS_MASK                        0x10UL                             /**< Bit mask for DMA_CH4PRIS */
+#define _DMA_CHPRIS_CH4PRIS_DEFAULT                     0x00000000UL                       /**< Mode DEFAULT for DMA_CHPRIS */
+#define DMA_CHPRIS_CH4PRIS_DEFAULT                      (_DMA_CHPRIS_CH4PRIS_DEFAULT << 4) /**< Shifted mode DEFAULT for DMA_CHPRIS */
+#define DMA_CHPRIS_CH5PRIS                              (0x1UL << 5)                       /**< Channel 5 High Priority Set */
+#define _DMA_CHPRIS_CH5PRIS_SHIFT                       5                                  /**< Shift value for DMA_CH5PRIS */
+#define _DMA_CHPRIS_CH5PRIS_MASK                        0x20UL                             /**< Bit mask for DMA_CH5PRIS */
+#define _DMA_CHPRIS_CH5PRIS_DEFAULT                     0x00000000UL                       /**< Mode DEFAULT for DMA_CHPRIS */
+#define DMA_CHPRIS_CH5PRIS_DEFAULT                      (_DMA_CHPRIS_CH5PRIS_DEFAULT << 5) /**< Shifted mode DEFAULT for DMA_CHPRIS */
+
+/* Bit fields for DMA CHPRIC */
+#define _DMA_CHPRIC_RESETVALUE                          0x00000000UL                       /**< Default value for DMA_CHPRIC */
+#define _DMA_CHPRIC_MASK                                0x0000003FUL                       /**< Mask for DMA_CHPRIC */
+#define DMA_CHPRIC_CH0PRIC                              (0x1UL << 0)                       /**< Channel 0 High Priority Clear */
+#define _DMA_CHPRIC_CH0PRIC_SHIFT                       0                                  /**< Shift value for DMA_CH0PRIC */
+#define _DMA_CHPRIC_CH0PRIC_MASK                        0x1UL                              /**< Bit mask for DMA_CH0PRIC */
+#define _DMA_CHPRIC_CH0PRIC_DEFAULT                     0x00000000UL                       /**< Mode DEFAULT for DMA_CHPRIC */
+#define DMA_CHPRIC_CH0PRIC_DEFAULT                      (_DMA_CHPRIC_CH0PRIC_DEFAULT << 0) /**< Shifted mode DEFAULT for DMA_CHPRIC */
+#define DMA_CHPRIC_CH1PRIC                              (0x1UL << 1)                       /**< Channel 1 High Priority Clear */
+#define _DMA_CHPRIC_CH1PRIC_SHIFT                       1                                  /**< Shift value for DMA_CH1PRIC */
+#define _DMA_CHPRIC_CH1PRIC_MASK                        0x2UL                              /**< Bit mask for DMA_CH1PRIC */
+#define _DMA_CHPRIC_CH1PRIC_DEFAULT                     0x00000000UL                       /**< Mode DEFAULT for DMA_CHPRIC */
+#define DMA_CHPRIC_CH1PRIC_DEFAULT                      (_DMA_CHPRIC_CH1PRIC_DEFAULT << 1) /**< Shifted mode DEFAULT for DMA_CHPRIC */
+#define DMA_CHPRIC_CH2PRIC                              (0x1UL << 2)                       /**< Channel 2 High Priority Clear */
+#define _DMA_CHPRIC_CH2PRIC_SHIFT                       2                                  /**< Shift value for DMA_CH2PRIC */
+#define _DMA_CHPRIC_CH2PRIC_MASK                        0x4UL                              /**< Bit mask for DMA_CH2PRIC */
+#define _DMA_CHPRIC_CH2PRIC_DEFAULT                     0x00000000UL                       /**< Mode DEFAULT for DMA_CHPRIC */
+#define DMA_CHPRIC_CH2PRIC_DEFAULT                      (_DMA_CHPRIC_CH2PRIC_DEFAULT << 2) /**< Shifted mode DEFAULT for DMA_CHPRIC */
+#define DMA_CHPRIC_CH3PRIC                              (0x1UL << 3)                       /**< Channel 3 High Priority Clear */
+#define _DMA_CHPRIC_CH3PRIC_SHIFT                       3                                  /**< Shift value for DMA_CH3PRIC */
+#define _DMA_CHPRIC_CH3PRIC_MASK                        0x8UL                              /**< Bit mask for DMA_CH3PRIC */
+#define _DMA_CHPRIC_CH3PRIC_DEFAULT                     0x00000000UL                       /**< Mode DEFAULT for DMA_CHPRIC */
+#define DMA_CHPRIC_CH3PRIC_DEFAULT                      (_DMA_CHPRIC_CH3PRIC_DEFAULT << 3) /**< Shifted mode DEFAULT for DMA_CHPRIC */
+#define DMA_CHPRIC_CH4PRIC                              (0x1UL << 4)                       /**< Channel 4 High Priority Clear */
+#define _DMA_CHPRIC_CH4PRIC_SHIFT                       4                                  /**< Shift value for DMA_CH4PRIC */
+#define _DMA_CHPRIC_CH4PRIC_MASK                        0x10UL                             /**< Bit mask for DMA_CH4PRIC */
+#define _DMA_CHPRIC_CH4PRIC_DEFAULT                     0x00000000UL                       /**< Mode DEFAULT for DMA_CHPRIC */
+#define DMA_CHPRIC_CH4PRIC_DEFAULT                      (_DMA_CHPRIC_CH4PRIC_DEFAULT << 4) /**< Shifted mode DEFAULT for DMA_CHPRIC */
+#define DMA_CHPRIC_CH5PRIC                              (0x1UL << 5)                       /**< Channel 5 High Priority Clear */
+#define _DMA_CHPRIC_CH5PRIC_SHIFT                       5                                  /**< Shift value for DMA_CH5PRIC */
+#define _DMA_CHPRIC_CH5PRIC_MASK                        0x20UL                             /**< Bit mask for DMA_CH5PRIC */
+#define _DMA_CHPRIC_CH5PRIC_DEFAULT                     0x00000000UL                       /**< Mode DEFAULT for DMA_CHPRIC */
+#define DMA_CHPRIC_CH5PRIC_DEFAULT                      (_DMA_CHPRIC_CH5PRIC_DEFAULT << 5) /**< Shifted mode DEFAULT for DMA_CHPRIC */
+
+/* Bit fields for DMA ERRORC */
+#define _DMA_ERRORC_RESETVALUE                          0x00000000UL                      /**< Default value for DMA_ERRORC */
+#define _DMA_ERRORC_MASK                                0x00000001UL                      /**< Mask for DMA_ERRORC */
+#define DMA_ERRORC_ERRORC                               (0x1UL << 0)                      /**< Bus Error Clear */
+#define _DMA_ERRORC_ERRORC_SHIFT                        0                                 /**< Shift value for DMA_ERRORC */
+#define _DMA_ERRORC_ERRORC_MASK                         0x1UL                             /**< Bit mask for DMA_ERRORC */
+#define _DMA_ERRORC_ERRORC_DEFAULT                      0x00000000UL                      /**< Mode DEFAULT for DMA_ERRORC */
+#define DMA_ERRORC_ERRORC_DEFAULT                       (_DMA_ERRORC_ERRORC_DEFAULT << 0) /**< Shifted mode DEFAULT for DMA_ERRORC */
+
+/* Bit fields for DMA CHREQSTATUS */
+#define _DMA_CHREQSTATUS_RESETVALUE                     0x00000000UL                                 /**< Default value for DMA_CHREQSTATUS */
+#define _DMA_CHREQSTATUS_MASK                           0x0000003FUL                                 /**< Mask for DMA_CHREQSTATUS */
+#define DMA_CHREQSTATUS_CH0REQSTATUS                    (0x1UL << 0)                                 /**< Channel 0 Request Status */
+#define _DMA_CHREQSTATUS_CH0REQSTATUS_SHIFT             0                                            /**< Shift value for DMA_CH0REQSTATUS */
+#define _DMA_CHREQSTATUS_CH0REQSTATUS_MASK              0x1UL                                        /**< Bit mask for DMA_CH0REQSTATUS */
+#define _DMA_CHREQSTATUS_CH0REQSTATUS_DEFAULT           0x00000000UL                                 /**< Mode DEFAULT for DMA_CHREQSTATUS */
+#define DMA_CHREQSTATUS_CH0REQSTATUS_DEFAULT            (_DMA_CHREQSTATUS_CH0REQSTATUS_DEFAULT << 0) /**< Shifted mode DEFAULT for DMA_CHREQSTATUS */
+#define DMA_CHREQSTATUS_CH1REQSTATUS                    (0x1UL << 1)                                 /**< Channel 1 Request Status */
+#define _DMA_CHREQSTATUS_CH1REQSTATUS_SHIFT             1                                            /**< Shift value for DMA_CH1REQSTATUS */
+#define _DMA_CHREQSTATUS_CH1REQSTATUS_MASK              0x2UL                                        /**< Bit mask for DMA_CH1REQSTATUS */
+#define _DMA_CHREQSTATUS_CH1REQSTATUS_DEFAULT           0x00000000UL                                 /**< Mode DEFAULT for DMA_CHREQSTATUS */
+#define DMA_CHREQSTATUS_CH1REQSTATUS_DEFAULT            (_DMA_CHREQSTATUS_CH1REQSTATUS_DEFAULT << 1) /**< Shifted mode DEFAULT for DMA_CHREQSTATUS */
+#define DMA_CHREQSTATUS_CH2REQSTATUS                    (0x1UL << 2)                                 /**< Channel 2 Request Status */
+#define _DMA_CHREQSTATUS_CH2REQSTATUS_SHIFT             2                                            /**< Shift value for DMA_CH2REQSTATUS */
+#define _DMA_CHREQSTATUS_CH2REQSTATUS_MASK              0x4UL                                        /**< Bit mask for DMA_CH2REQSTATUS */
+#define _DMA_CHREQSTATUS_CH2REQSTATUS_DEFAULT           0x00000000UL                                 /**< Mode DEFAULT for DMA_CHREQSTATUS */
+#define DMA_CHREQSTATUS_CH2REQSTATUS_DEFAULT            (_DMA_CHREQSTATUS_CH2REQSTATUS_DEFAULT << 2) /**< Shifted mode DEFAULT for DMA_CHREQSTATUS */
+#define DMA_CHREQSTATUS_CH3REQSTATUS                    (0x1UL << 3)                                 /**< Channel 3 Request Status */
+#define _DMA_CHREQSTATUS_CH3REQSTATUS_SHIFT             3                                            /**< Shift value for DMA_CH3REQSTATUS */
+#define _DMA_CHREQSTATUS_CH3REQSTATUS_MASK              0x8UL                                        /**< Bit mask for DMA_CH3REQSTATUS */
+#define _DMA_CHREQSTATUS_CH3REQSTATUS_DEFAULT           0x00000000UL                                 /**< Mode DEFAULT for DMA_CHREQSTATUS */
+#define DMA_CHREQSTATUS_CH3REQSTATUS_DEFAULT            (_DMA_CHREQSTATUS_CH3REQSTATUS_DEFAULT << 3) /**< Shifted mode DEFAULT for DMA_CHREQSTATUS */
+#define DMA_CHREQSTATUS_CH4REQSTATUS                    (0x1UL << 4)                                 /**< Channel 4 Request Status */
+#define _DMA_CHREQSTATUS_CH4REQSTATUS_SHIFT             4                                            /**< Shift value for DMA_CH4REQSTATUS */
+#define _DMA_CHREQSTATUS_CH4REQSTATUS_MASK              0x10UL                                       /**< Bit mask for DMA_CH4REQSTATUS */
+#define _DMA_CHREQSTATUS_CH4REQSTATUS_DEFAULT           0x00000000UL                                 /**< Mode DEFAULT for DMA_CHREQSTATUS */
+#define DMA_CHREQSTATUS_CH4REQSTATUS_DEFAULT            (_DMA_CHREQSTATUS_CH4REQSTATUS_DEFAULT << 4) /**< Shifted mode DEFAULT for DMA_CHREQSTATUS */
+#define DMA_CHREQSTATUS_CH5REQSTATUS                    (0x1UL << 5)                                 /**< Channel 5 Request Status */
+#define _DMA_CHREQSTATUS_CH5REQSTATUS_SHIFT             5                                            /**< Shift value for DMA_CH5REQSTATUS */
+#define _DMA_CHREQSTATUS_CH5REQSTATUS_MASK              0x20UL                                       /**< Bit mask for DMA_CH5REQSTATUS */
+#define _DMA_CHREQSTATUS_CH5REQSTATUS_DEFAULT           0x00000000UL                                 /**< Mode DEFAULT for DMA_CHREQSTATUS */
+#define DMA_CHREQSTATUS_CH5REQSTATUS_DEFAULT            (_DMA_CHREQSTATUS_CH5REQSTATUS_DEFAULT << 5) /**< Shifted mode DEFAULT for DMA_CHREQSTATUS */
+
+/* Bit fields for DMA CHSREQSTATUS */
+#define _DMA_CHSREQSTATUS_RESETVALUE                    0x00000000UL                                   /**< Default value for DMA_CHSREQSTATUS */
+#define _DMA_CHSREQSTATUS_MASK                          0x0000003FUL                                   /**< Mask for DMA_CHSREQSTATUS */
+#define DMA_CHSREQSTATUS_CH0SREQSTATUS                  (0x1UL << 0)                                   /**< Channel 0 Single Request Status */
+#define _DMA_CHSREQSTATUS_CH0SREQSTATUS_SHIFT           0                                              /**< Shift value for DMA_CH0SREQSTATUS */
+#define _DMA_CHSREQSTATUS_CH0SREQSTATUS_MASK            0x1UL                                          /**< Bit mask for DMA_CH0SREQSTATUS */
+#define _DMA_CHSREQSTATUS_CH0SREQSTATUS_DEFAULT         0x00000000UL                                   /**< Mode DEFAULT for DMA_CHSREQSTATUS */
+#define DMA_CHSREQSTATUS_CH0SREQSTATUS_DEFAULT          (_DMA_CHSREQSTATUS_CH0SREQSTATUS_DEFAULT << 0) /**< Shifted mode DEFAULT for DMA_CHSREQSTATUS */
+#define DMA_CHSREQSTATUS_CH1SREQSTATUS                  (0x1UL << 1)                                   /**< Channel 1 Single Request Status */
+#define _DMA_CHSREQSTATUS_CH1SREQSTATUS_SHIFT           1                                              /**< Shift value for DMA_CH1SREQSTATUS */
+#define _DMA_CHSREQSTATUS_CH1SREQSTATUS_MASK            0x2UL                                          /**< Bit mask for DMA_CH1SREQSTATUS */
+#define _DMA_CHSREQSTATUS_CH1SREQSTATUS_DEFAULT         0x00000000UL                                   /**< Mode DEFAULT for DMA_CHSREQSTATUS */
+#define DMA_CHSREQSTATUS_CH1SREQSTATUS_DEFAULT          (_DMA_CHSREQSTATUS_CH1SREQSTATUS_DEFAULT << 1) /**< Shifted mode DEFAULT for DMA_CHSREQSTATUS */
+#define DMA_CHSREQSTATUS_CH2SREQSTATUS                  (0x1UL << 2)                                   /**< Channel 2 Single Request Status */
+#define _DMA_CHSREQSTATUS_CH2SREQSTATUS_SHIFT           2                                              /**< Shift value for DMA_CH2SREQSTATUS */
+#define _DMA_CHSREQSTATUS_CH2SREQSTATUS_MASK            0x4UL                                          /**< Bit mask for DMA_CH2SREQSTATUS */
+#define _DMA_CHSREQSTATUS_CH2SREQSTATUS_DEFAULT         0x00000000UL                                   /**< Mode DEFAULT for DMA_CHSREQSTATUS */
+#define DMA_CHSREQSTATUS_CH2SREQSTATUS_DEFAULT          (_DMA_CHSREQSTATUS_CH2SREQSTATUS_DEFAULT << 2) /**< Shifted mode DEFAULT for DMA_CHSREQSTATUS */
+#define DMA_CHSREQSTATUS_CH3SREQSTATUS                  (0x1UL << 3)                                   /**< Channel 3 Single Request Status */
+#define _DMA_CHSREQSTATUS_CH3SREQSTATUS_SHIFT           3                                              /**< Shift value for DMA_CH3SREQSTATUS */
+#define _DMA_CHSREQSTATUS_CH3SREQSTATUS_MASK            0x8UL                                          /**< Bit mask for DMA_CH3SREQSTATUS */
+#define _DMA_CHSREQSTATUS_CH3SREQSTATUS_DEFAULT         0x00000000UL                                   /**< Mode DEFAULT for DMA_CHSREQSTATUS */
+#define DMA_CHSREQSTATUS_CH3SREQSTATUS_DEFAULT          (_DMA_CHSREQSTATUS_CH3SREQSTATUS_DEFAULT << 3) /**< Shifted mode DEFAULT for DMA_CHSREQSTATUS */
+#define DMA_CHSREQSTATUS_CH4SREQSTATUS                  (0x1UL << 4)                                   /**< Channel 4 Single Request Status */
+#define _DMA_CHSREQSTATUS_CH4SREQSTATUS_SHIFT           4                                              /**< Shift value for DMA_CH4SREQSTATUS */
+#define _DMA_CHSREQSTATUS_CH4SREQSTATUS_MASK            0x10UL                                         /**< Bit mask for DMA_CH4SREQSTATUS */
+#define _DMA_CHSREQSTATUS_CH4SREQSTATUS_DEFAULT         0x00000000UL                                   /**< Mode DEFAULT for DMA_CHSREQSTATUS */
+#define DMA_CHSREQSTATUS_CH4SREQSTATUS_DEFAULT          (_DMA_CHSREQSTATUS_CH4SREQSTATUS_DEFAULT << 4) /**< Shifted mode DEFAULT for DMA_CHSREQSTATUS */
+#define DMA_CHSREQSTATUS_CH5SREQSTATUS                  (0x1UL << 5)                                   /**< Channel 5 Single Request Status */
+#define _DMA_CHSREQSTATUS_CH5SREQSTATUS_SHIFT           5                                              /**< Shift value for DMA_CH5SREQSTATUS */
+#define _DMA_CHSREQSTATUS_CH5SREQSTATUS_MASK            0x20UL                                         /**< Bit mask for DMA_CH5SREQSTATUS */
+#define _DMA_CHSREQSTATUS_CH5SREQSTATUS_DEFAULT         0x00000000UL                                   /**< Mode DEFAULT for DMA_CHSREQSTATUS */
+#define DMA_CHSREQSTATUS_CH5SREQSTATUS_DEFAULT          (_DMA_CHSREQSTATUS_CH5SREQSTATUS_DEFAULT << 5) /**< Shifted mode DEFAULT for DMA_CHSREQSTATUS */
+
+/* Bit fields for DMA IF */
+#define _DMA_IF_RESETVALUE                              0x00000000UL                   /**< Default value for DMA_IF */
+#define _DMA_IF_MASK                                    0x8000003FUL                   /**< Mask for DMA_IF */
+#define DMA_IF_CH0DONE                                  (0x1UL << 0)                   /**< DMA Channel 0 Complete Interrupt Flag */
+#define _DMA_IF_CH0DONE_SHIFT                           0                              /**< Shift value for DMA_CH0DONE */
+#define _DMA_IF_CH0DONE_MASK                            0x1UL                          /**< Bit mask for DMA_CH0DONE */
+#define _DMA_IF_CH0DONE_DEFAULT                         0x00000000UL                   /**< Mode DEFAULT for DMA_IF */
+#define DMA_IF_CH0DONE_DEFAULT                          (_DMA_IF_CH0DONE_DEFAULT << 0) /**< Shifted mode DEFAULT for DMA_IF */
+#define DMA_IF_CH1DONE                                  (0x1UL << 1)                   /**< DMA Channel 1 Complete Interrupt Flag */
+#define _DMA_IF_CH1DONE_SHIFT                           1                              /**< Shift value for DMA_CH1DONE */
+#define _DMA_IF_CH1DONE_MASK                            0x2UL                          /**< Bit mask for DMA_CH1DONE */
+#define _DMA_IF_CH1DONE_DEFAULT                         0x00000000UL                   /**< Mode DEFAULT for DMA_IF */
+#define DMA_IF_CH1DONE_DEFAULT                          (_DMA_IF_CH1DONE_DEFAULT << 1) /**< Shifted mode DEFAULT for DMA_IF */
+#define DMA_IF_CH2DONE                                  (0x1UL << 2)                   /**< DMA Channel 2 Complete Interrupt Flag */
+#define _DMA_IF_CH2DONE_SHIFT                           2                              /**< Shift value for DMA_CH2DONE */
+#define _DMA_IF_CH2DONE_MASK                            0x4UL                          /**< Bit mask for DMA_CH2DONE */
+#define _DMA_IF_CH2DONE_DEFAULT                         0x00000000UL                   /**< Mode DEFAULT for DMA_IF */
+#define DMA_IF_CH2DONE_DEFAULT                          (_DMA_IF_CH2DONE_DEFAULT << 2) /**< Shifted mode DEFAULT for DMA_IF */
+#define DMA_IF_CH3DONE                                  (0x1UL << 3)                   /**< DMA Channel 3 Complete Interrupt Flag */
+#define _DMA_IF_CH3DONE_SHIFT                           3                              /**< Shift value for DMA_CH3DONE */
+#define _DMA_IF_CH3DONE_MASK                            0x8UL                          /**< Bit mask for DMA_CH3DONE */
+#define _DMA_IF_CH3DONE_DEFAULT                         0x00000000UL                   /**< Mode DEFAULT for DMA_IF */
+#define DMA_IF_CH3DONE_DEFAULT                          (_DMA_IF_CH3DONE_DEFAULT << 3) /**< Shifted mode DEFAULT for DMA_IF */
+#define DMA_IF_CH4DONE                                  (0x1UL << 4)                   /**< DMA Channel 4 Complete Interrupt Flag */
+#define _DMA_IF_CH4DONE_SHIFT                           4                              /**< Shift value for DMA_CH4DONE */
+#define _DMA_IF_CH4DONE_MASK                            0x10UL                         /**< Bit mask for DMA_CH4DONE */
+#define _DMA_IF_CH4DONE_DEFAULT                         0x00000000UL                   /**< Mode DEFAULT for DMA_IF */
+#define DMA_IF_CH4DONE_DEFAULT                          (_DMA_IF_CH4DONE_DEFAULT << 4) /**< Shifted mode DEFAULT for DMA_IF */
+#define DMA_IF_CH5DONE                                  (0x1UL << 5)                   /**< DMA Channel 5 Complete Interrupt Flag */
+#define _DMA_IF_CH5DONE_SHIFT                           5                              /**< Shift value for DMA_CH5DONE */
+#define _DMA_IF_CH5DONE_MASK                            0x20UL                         /**< Bit mask for DMA_CH5DONE */
+#define _DMA_IF_CH5DONE_DEFAULT                         0x00000000UL                   /**< Mode DEFAULT for DMA_IF */
+#define DMA_IF_CH5DONE_DEFAULT                          (_DMA_IF_CH5DONE_DEFAULT << 5) /**< Shifted mode DEFAULT for DMA_IF */
+#define DMA_IF_ERR                                      (0x1UL << 31)                  /**< DMA Error Interrupt Flag */
+#define _DMA_IF_ERR_SHIFT                               31                             /**< Shift value for DMA_ERR */
+#define _DMA_IF_ERR_MASK                                0x80000000UL                   /**< Bit mask for DMA_ERR */
+#define _DMA_IF_ERR_DEFAULT                             0x00000000UL                   /**< Mode DEFAULT for DMA_IF */
+#define DMA_IF_ERR_DEFAULT                              (_DMA_IF_ERR_DEFAULT << 31)    /**< Shifted mode DEFAULT for DMA_IF */
+
+/* Bit fields for DMA IFS */
+#define _DMA_IFS_RESETVALUE                             0x00000000UL                    /**< Default value for DMA_IFS */
+#define _DMA_IFS_MASK                                   0x8000003FUL                    /**< Mask for DMA_IFS */
+#define DMA_IFS_CH0DONE                                 (0x1UL << 0)                    /**< DMA Channel 0 Complete Interrupt Flag Set */
+#define _DMA_IFS_CH0DONE_SHIFT                          0                               /**< Shift value for DMA_CH0DONE */
+#define _DMA_IFS_CH0DONE_MASK                           0x1UL                           /**< Bit mask for DMA_CH0DONE */
+#define _DMA_IFS_CH0DONE_DEFAULT                        0x00000000UL                    /**< Mode DEFAULT for DMA_IFS */
+#define DMA_IFS_CH0DONE_DEFAULT                         (_DMA_IFS_CH0DONE_DEFAULT << 0) /**< Shifted mode DEFAULT for DMA_IFS */
+#define DMA_IFS_CH1DONE                                 (0x1UL << 1)                    /**< DMA Channel 1 Complete Interrupt Flag Set */
+#define _DMA_IFS_CH1DONE_SHIFT                          1                               /**< Shift value for DMA_CH1DONE */
+#define _DMA_IFS_CH1DONE_MASK                           0x2UL                           /**< Bit mask for DMA_CH1DONE */
+#define _DMA_IFS_CH1DONE_DEFAULT                        0x00000000UL                    /**< Mode DEFAULT for DMA_IFS */
+#define DMA_IFS_CH1DONE_DEFAULT                         (_DMA_IFS_CH1DONE_DEFAULT << 1) /**< Shifted mode DEFAULT for DMA_IFS */
+#define DMA_IFS_CH2DONE                                 (0x1UL << 2)                    /**< DMA Channel 2 Complete Interrupt Flag Set */
+#define _DMA_IFS_CH2DONE_SHIFT                          2                               /**< Shift value for DMA_CH2DONE */
+#define _DMA_IFS_CH2DONE_MASK                           0x4UL                           /**< Bit mask for DMA_CH2DONE */
+#define _DMA_IFS_CH2DONE_DEFAULT                        0x00000000UL                    /**< Mode DEFAULT for DMA_IFS */
+#define DMA_IFS_CH2DONE_DEFAULT                         (_DMA_IFS_CH2DONE_DEFAULT << 2) /**< Shifted mode DEFAULT for DMA_IFS */
+#define DMA_IFS_CH3DONE                                 (0x1UL << 3)                    /**< DMA Channel 3 Complete Interrupt Flag Set */
+#define _DMA_IFS_CH3DONE_SHIFT                          3                               /**< Shift value for DMA_CH3DONE */
+#define _DMA_IFS_CH3DONE_MASK                           0x8UL                           /**< Bit mask for DMA_CH3DONE */
+#define _DMA_IFS_CH3DONE_DEFAULT                        0x00000000UL                    /**< Mode DEFAULT for DMA_IFS */
+#define DMA_IFS_CH3DONE_DEFAULT                         (_DMA_IFS_CH3DONE_DEFAULT << 3) /**< Shifted mode DEFAULT for DMA_IFS */
+#define DMA_IFS_CH4DONE                                 (0x1UL << 4)                    /**< DMA Channel 4 Complete Interrupt Flag Set */
+#define _DMA_IFS_CH4DONE_SHIFT                          4                               /**< Shift value for DMA_CH4DONE */
+#define _DMA_IFS_CH4DONE_MASK                           0x10UL                          /**< Bit mask for DMA_CH4DONE */
+#define _DMA_IFS_CH4DONE_DEFAULT                        0x00000000UL                    /**< Mode DEFAULT for DMA_IFS */
+#define DMA_IFS_CH4DONE_DEFAULT                         (_DMA_IFS_CH4DONE_DEFAULT << 4) /**< Shifted mode DEFAULT for DMA_IFS */
+#define DMA_IFS_CH5DONE                                 (0x1UL << 5)                    /**< DMA Channel 5 Complete Interrupt Flag Set */
+#define _DMA_IFS_CH5DONE_SHIFT                          5                               /**< Shift value for DMA_CH5DONE */
+#define _DMA_IFS_CH5DONE_MASK                           0x20UL                          /**< Bit mask for DMA_CH5DONE */
+#define _DMA_IFS_CH5DONE_DEFAULT                        0x00000000UL                    /**< Mode DEFAULT for DMA_IFS */
+#define DMA_IFS_CH5DONE_DEFAULT                         (_DMA_IFS_CH5DONE_DEFAULT << 5) /**< Shifted mode DEFAULT for DMA_IFS */
+#define DMA_IFS_ERR                                     (0x1UL << 31)                   /**< DMA Error Interrupt Flag Set */
+#define _DMA_IFS_ERR_SHIFT                              31                              /**< Shift value for DMA_ERR */
+#define _DMA_IFS_ERR_MASK                               0x80000000UL                    /**< Bit mask for DMA_ERR */
+#define _DMA_IFS_ERR_DEFAULT                            0x00000000UL                    /**< Mode DEFAULT for DMA_IFS */
+#define DMA_IFS_ERR_DEFAULT                             (_DMA_IFS_ERR_DEFAULT << 31)    /**< Shifted mode DEFAULT for DMA_IFS */
+
+/* Bit fields for DMA IFC */
+#define _DMA_IFC_RESETVALUE                             0x00000000UL                    /**< Default value for DMA_IFC */
+#define _DMA_IFC_MASK                                   0x8000003FUL                    /**< Mask for DMA_IFC */
+#define DMA_IFC_CH0DONE                                 (0x1UL << 0)                    /**< DMA Channel 0 Complete Interrupt Flag Clear */
+#define _DMA_IFC_CH0DONE_SHIFT                          0                               /**< Shift value for DMA_CH0DONE */
+#define _DMA_IFC_CH0DONE_MASK                           0x1UL                           /**< Bit mask for DMA_CH0DONE */
+#define _DMA_IFC_CH0DONE_DEFAULT                        0x00000000UL                    /**< Mode DEFAULT for DMA_IFC */
+#define DMA_IFC_CH0DONE_DEFAULT                         (_DMA_IFC_CH0DONE_DEFAULT << 0) /**< Shifted mode DEFAULT for DMA_IFC */
+#define DMA_IFC_CH1DONE                                 (0x1UL << 1)                    /**< DMA Channel 1 Complete Interrupt Flag Clear */
+#define _DMA_IFC_CH1DONE_SHIFT                          1                               /**< Shift value for DMA_CH1DONE */
+#define _DMA_IFC_CH1DONE_MASK                           0x2UL                           /**< Bit mask for DMA_CH1DONE */
+#define _DMA_IFC_CH1DONE_DEFAULT                        0x00000000UL                    /**< Mode DEFAULT for DMA_IFC */
+#define DMA_IFC_CH1DONE_DEFAULT                         (_DMA_IFC_CH1DONE_DEFAULT << 1) /**< Shifted mode DEFAULT for DMA_IFC */
+#define DMA_IFC_CH2DONE                                 (0x1UL << 2)                    /**< DMA Channel 2 Complete Interrupt Flag Clear */
+#define _DMA_IFC_CH2DONE_SHIFT                          2                               /**< Shift value for DMA_CH2DONE */
+#define _DMA_IFC_CH2DONE_MASK                           0x4UL                           /**< Bit mask for DMA_CH2DONE */
+#define _DMA_IFC_CH2DONE_DEFAULT                        0x00000000UL                    /**< Mode DEFAULT for DMA_IFC */
+#define DMA_IFC_CH2DONE_DEFAULT                         (_DMA_IFC_CH2DONE_DEFAULT << 2) /**< Shifted mode DEFAULT for DMA_IFC */
+#define DMA_IFC_CH3DONE                                 (0x1UL << 3)                    /**< DMA Channel 3 Complete Interrupt Flag Clear */
+#define _DMA_IFC_CH3DONE_SHIFT                          3                               /**< Shift value for DMA_CH3DONE */
+#define _DMA_IFC_CH3DONE_MASK                           0x8UL                           /**< Bit mask for DMA_CH3DONE */
+#define _DMA_IFC_CH3DONE_DEFAULT                        0x00000000UL                    /**< Mode DEFAULT for DMA_IFC */
+#define DMA_IFC_CH3DONE_DEFAULT                         (_DMA_IFC_CH3DONE_DEFAULT << 3) /**< Shifted mode DEFAULT for DMA_IFC */
+#define DMA_IFC_CH4DONE                                 (0x1UL << 4)                    /**< DMA Channel 4 Complete Interrupt Flag Clear */
+#define _DMA_IFC_CH4DONE_SHIFT                          4                               /**< Shift value for DMA_CH4DONE */
+#define _DMA_IFC_CH4DONE_MASK                           0x10UL                          /**< Bit mask for DMA_CH4DONE */
+#define _DMA_IFC_CH4DONE_DEFAULT                        0x00000000UL                    /**< Mode DEFAULT for DMA_IFC */
+#define DMA_IFC_CH4DONE_DEFAULT                         (_DMA_IFC_CH4DONE_DEFAULT << 4) /**< Shifted mode DEFAULT for DMA_IFC */
+#define DMA_IFC_CH5DONE                                 (0x1UL << 5)                    /**< DMA Channel 5 Complete Interrupt Flag Clear */
+#define _DMA_IFC_CH5DONE_SHIFT                          5                               /**< Shift value for DMA_CH5DONE */
+#define _DMA_IFC_CH5DONE_MASK                           0x20UL                          /**< Bit mask for DMA_CH5DONE */
+#define _DMA_IFC_CH5DONE_DEFAULT                        0x00000000UL                    /**< Mode DEFAULT for DMA_IFC */
+#define DMA_IFC_CH5DONE_DEFAULT                         (_DMA_IFC_CH5DONE_DEFAULT << 5) /**< Shifted mode DEFAULT for DMA_IFC */
+#define DMA_IFC_ERR                                     (0x1UL << 31)                   /**< DMA Error Interrupt Flag Clear */
+#define _DMA_IFC_ERR_SHIFT                              31                              /**< Shift value for DMA_ERR */
+#define _DMA_IFC_ERR_MASK                               0x80000000UL                    /**< Bit mask for DMA_ERR */
+#define _DMA_IFC_ERR_DEFAULT                            0x00000000UL                    /**< Mode DEFAULT for DMA_IFC */
+#define DMA_IFC_ERR_DEFAULT                             (_DMA_IFC_ERR_DEFAULT << 31)    /**< Shifted mode DEFAULT for DMA_IFC */
+
+/* Bit fields for DMA IEN */
+#define _DMA_IEN_RESETVALUE                             0x00000000UL                    /**< Default value for DMA_IEN */
+#define _DMA_IEN_MASK                                   0x8000003FUL                    /**< Mask for DMA_IEN */
+#define DMA_IEN_CH0DONE                                 (0x1UL << 0)                    /**< DMA Channel 0 Complete Interrupt Enable */
+#define _DMA_IEN_CH0DONE_SHIFT                          0                               /**< Shift value for DMA_CH0DONE */
+#define _DMA_IEN_CH0DONE_MASK                           0x1UL                           /**< Bit mask for DMA_CH0DONE */
+#define _DMA_IEN_CH0DONE_DEFAULT                        0x00000000UL                    /**< Mode DEFAULT for DMA_IEN */
+#define DMA_IEN_CH0DONE_DEFAULT                         (_DMA_IEN_CH0DONE_DEFAULT << 0) /**< Shifted mode DEFAULT for DMA_IEN */
+#define DMA_IEN_CH1DONE                                 (0x1UL << 1)                    /**< DMA Channel 1 Complete Interrupt Enable */
+#define _DMA_IEN_CH1DONE_SHIFT                          1                               /**< Shift value for DMA_CH1DONE */
+#define _DMA_IEN_CH1DONE_MASK                           0x2UL                           /**< Bit mask for DMA_CH1DONE */
+#define _DMA_IEN_CH1DONE_DEFAULT                        0x00000000UL                    /**< Mode DEFAULT for DMA_IEN */
+#define DMA_IEN_CH1DONE_DEFAULT                         (_DMA_IEN_CH1DONE_DEFAULT << 1) /**< Shifted mode DEFAULT for DMA_IEN */
+#define DMA_IEN_CH2DONE                                 (0x1UL << 2)                    /**< DMA Channel 2 Complete Interrupt Enable */
+#define _DMA_IEN_CH2DONE_SHIFT                          2                               /**< Shift value for DMA_CH2DONE */
+#define _DMA_IEN_CH2DONE_MASK                           0x4UL                           /**< Bit mask for DMA_CH2DONE */
+#define _DMA_IEN_CH2DONE_DEFAULT                        0x00000000UL                    /**< Mode DEFAULT for DMA_IEN */
+#define DMA_IEN_CH2DONE_DEFAULT                         (_DMA_IEN_CH2DONE_DEFAULT << 2) /**< Shifted mode DEFAULT for DMA_IEN */
+#define DMA_IEN_CH3DONE                                 (0x1UL << 3)                    /**< DMA Channel 3 Complete Interrupt Enable */
+#define _DMA_IEN_CH3DONE_SHIFT                          3                               /**< Shift value for DMA_CH3DONE */
+#define _DMA_IEN_CH3DONE_MASK                           0x8UL                           /**< Bit mask for DMA_CH3DONE */
+#define _DMA_IEN_CH3DONE_DEFAULT                        0x00000000UL                    /**< Mode DEFAULT for DMA_IEN */
+#define DMA_IEN_CH3DONE_DEFAULT                         (_DMA_IEN_CH3DONE_DEFAULT << 3) /**< Shifted mode DEFAULT for DMA_IEN */
+#define DMA_IEN_CH4DONE                                 (0x1UL << 4)                    /**< DMA Channel 4 Complete Interrupt Enable */
+#define _DMA_IEN_CH4DONE_SHIFT                          4                               /**< Shift value for DMA_CH4DONE */
+#define _DMA_IEN_CH4DONE_MASK                           0x10UL                          /**< Bit mask for DMA_CH4DONE */
+#define _DMA_IEN_CH4DONE_DEFAULT                        0x00000000UL                    /**< Mode DEFAULT for DMA_IEN */
+#define DMA_IEN_CH4DONE_DEFAULT                         (_DMA_IEN_CH4DONE_DEFAULT << 4) /**< Shifted mode DEFAULT for DMA_IEN */
+#define DMA_IEN_CH5DONE                                 (0x1UL << 5)                    /**< DMA Channel 5 Complete Interrupt Enable */
+#define _DMA_IEN_CH5DONE_SHIFT                          5                               /**< Shift value for DMA_CH5DONE */
+#define _DMA_IEN_CH5DONE_MASK                           0x20UL                          /**< Bit mask for DMA_CH5DONE */
+#define _DMA_IEN_CH5DONE_DEFAULT                        0x00000000UL                    /**< Mode DEFAULT for DMA_IEN */
+#define DMA_IEN_CH5DONE_DEFAULT                         (_DMA_IEN_CH5DONE_DEFAULT << 5) /**< Shifted mode DEFAULT for DMA_IEN */
+#define DMA_IEN_ERR                                     (0x1UL << 31)                   /**< DMA Error Interrupt Flag Enable */
+#define _DMA_IEN_ERR_SHIFT                              31                              /**< Shift value for DMA_ERR */
+#define _DMA_IEN_ERR_MASK                               0x80000000UL                    /**< Bit mask for DMA_ERR */
+#define _DMA_IEN_ERR_DEFAULT                            0x00000000UL                    /**< Mode DEFAULT for DMA_IEN */
+#define DMA_IEN_ERR_DEFAULT                             (_DMA_IEN_ERR_DEFAULT << 31)    /**< Shifted mode DEFAULT for DMA_IEN */
+
+/* Bit fields for DMA CH_CTRL */
+#define _DMA_CH_CTRL_RESETVALUE                         0x00000000UL                                  /**< Default value for DMA_CH_CTRL */
+#define _DMA_CH_CTRL_MASK                               0x003F000FUL                                  /**< Mask for DMA_CH_CTRL */
+#define _DMA_CH_CTRL_SIGSEL_SHIFT                       0                                             /**< Shift value for DMA_SIGSEL */
+#define _DMA_CH_CTRL_SIGSEL_MASK                        0xFUL                                         /**< Bit mask for DMA_SIGSEL */
+#define _DMA_CH_CTRL_SIGSEL_ADC0SINGLE                  0x00000000UL                                  /**< Mode ADC0SINGLE for DMA_CH_CTRL */
+#define _DMA_CH_CTRL_SIGSEL_USART0RXDATAV               0x00000000UL                                  /**< Mode USART0RXDATAV for DMA_CH_CTRL */
+#define _DMA_CH_CTRL_SIGSEL_USART1RXDATAV               0x00000000UL                                  /**< Mode USART1RXDATAV for DMA_CH_CTRL */
+#define _DMA_CH_CTRL_SIGSEL_LEUART0RXDATAV              0x00000000UL                                  /**< Mode LEUART0RXDATAV for DMA_CH_CTRL */
+#define _DMA_CH_CTRL_SIGSEL_I2C0RXDATAV                 0x00000000UL                                  /**< Mode I2C0RXDATAV for DMA_CH_CTRL */
+#define _DMA_CH_CTRL_SIGSEL_TIMER0UFOF                  0x00000000UL                                  /**< Mode TIMER0UFOF for DMA_CH_CTRL */
+#define _DMA_CH_CTRL_SIGSEL_TIMER1UFOF                  0x00000000UL                                  /**< Mode TIMER1UFOF for DMA_CH_CTRL */
+#define _DMA_CH_CTRL_SIGSEL_TIMER2UFOF                  0x00000000UL                                  /**< Mode TIMER2UFOF for DMA_CH_CTRL */
+#define _DMA_CH_CTRL_SIGSEL_MSCWDATA                    0x00000000UL                                  /**< Mode MSCWDATA for DMA_CH_CTRL */
+#define _DMA_CH_CTRL_SIGSEL_ADC0SCAN                    0x00000001UL                                  /**< Mode ADC0SCAN for DMA_CH_CTRL */
+#define _DMA_CH_CTRL_SIGSEL_USART0TXBL                  0x00000001UL                                  /**< Mode USART0TXBL for DMA_CH_CTRL */
+#define _DMA_CH_CTRL_SIGSEL_USART1TXBL                  0x00000001UL                                  /**< Mode USART1TXBL for DMA_CH_CTRL */
+#define _DMA_CH_CTRL_SIGSEL_LEUART0TXBL                 0x00000001UL                                  /**< Mode LEUART0TXBL for DMA_CH_CTRL */
+#define _DMA_CH_CTRL_SIGSEL_I2C0TXBL                    0x00000001UL                                  /**< Mode I2C0TXBL for DMA_CH_CTRL */
+#define _DMA_CH_CTRL_SIGSEL_TIMER0CC0                   0x00000001UL                                  /**< Mode TIMER0CC0 for DMA_CH_CTRL */
+#define _DMA_CH_CTRL_SIGSEL_TIMER1CC0                   0x00000001UL                                  /**< Mode TIMER1CC0 for DMA_CH_CTRL */
+#define _DMA_CH_CTRL_SIGSEL_TIMER2CC0                   0x00000001UL                                  /**< Mode TIMER2CC0 for DMA_CH_CTRL */
+#define _DMA_CH_CTRL_SIGSEL_USART0TXEMPTY               0x00000002UL                                  /**< Mode USART0TXEMPTY for DMA_CH_CTRL */
+#define _DMA_CH_CTRL_SIGSEL_USART1TXEMPTY               0x00000002UL                                  /**< Mode USART1TXEMPTY for DMA_CH_CTRL */
+#define _DMA_CH_CTRL_SIGSEL_LEUART0TXEMPTY              0x00000002UL                                  /**< Mode LEUART0TXEMPTY for DMA_CH_CTRL */
+#define _DMA_CH_CTRL_SIGSEL_TIMER0CC1                   0x00000002UL                                  /**< Mode TIMER0CC1 for DMA_CH_CTRL */
+#define _DMA_CH_CTRL_SIGSEL_TIMER1CC1                   0x00000002UL                                  /**< Mode TIMER1CC1 for DMA_CH_CTRL */
+#define _DMA_CH_CTRL_SIGSEL_TIMER2CC1                   0x00000002UL                                  /**< Mode TIMER2CC1 for DMA_CH_CTRL */
+#define _DMA_CH_CTRL_SIGSEL_USART1RXDATAVRIGHT          0x00000003UL                                  /**< Mode USART1RXDATAVRIGHT for DMA_CH_CTRL */
+#define _DMA_CH_CTRL_SIGSEL_TIMER0CC2                   0x00000003UL                                  /**< Mode TIMER0CC2 for DMA_CH_CTRL */
+#define _DMA_CH_CTRL_SIGSEL_TIMER1CC2                   0x00000003UL                                  /**< Mode TIMER1CC2 for DMA_CH_CTRL */
+#define _DMA_CH_CTRL_SIGSEL_TIMER2CC2                   0x00000003UL                                  /**< Mode TIMER2CC2 for DMA_CH_CTRL */
+#define _DMA_CH_CTRL_SIGSEL_USART1TXBLRIGHT             0x00000004UL                                  /**< Mode USART1TXBLRIGHT for DMA_CH_CTRL */
+#define DMA_CH_CTRL_SIGSEL_ADC0SINGLE                   (_DMA_CH_CTRL_SIGSEL_ADC0SINGLE << 0)         /**< Shifted mode ADC0SINGLE for DMA_CH_CTRL */
+#define DMA_CH_CTRL_SIGSEL_USART0RXDATAV                (_DMA_CH_CTRL_SIGSEL_USART0RXDATAV << 0)      /**< Shifted mode USART0RXDATAV for DMA_CH_CTRL */
+#define DMA_CH_CTRL_SIGSEL_USART1RXDATAV                (_DMA_CH_CTRL_SIGSEL_USART1RXDATAV << 0)      /**< Shifted mode USART1RXDATAV for DMA_CH_CTRL */
+#define DMA_CH_CTRL_SIGSEL_LEUART0RXDATAV               (_DMA_CH_CTRL_SIGSEL_LEUART0RXDATAV << 0)     /**< Shifted mode LEUART0RXDATAV for DMA_CH_CTRL */
+#define DMA_CH_CTRL_SIGSEL_I2C0RXDATAV                  (_DMA_CH_CTRL_SIGSEL_I2C0RXDATAV << 0)        /**< Shifted mode I2C0RXDATAV for DMA_CH_CTRL */
+#define DMA_CH_CTRL_SIGSEL_TIMER0UFOF                   (_DMA_CH_CTRL_SIGSEL_TIMER0UFOF << 0)         /**< Shifted mode TIMER0UFOF for DMA_CH_CTRL */
+#define DMA_CH_CTRL_SIGSEL_TIMER1UFOF                   (_DMA_CH_CTRL_SIGSEL_TIMER1UFOF << 0)         /**< Shifted mode TIMER1UFOF for DMA_CH_CTRL */
+#define DMA_CH_CTRL_SIGSEL_TIMER2UFOF                   (_DMA_CH_CTRL_SIGSEL_TIMER2UFOF << 0)         /**< Shifted mode TIMER2UFOF for DMA_CH_CTRL */
+#define DMA_CH_CTRL_SIGSEL_MSCWDATA                     (_DMA_CH_CTRL_SIGSEL_MSCWDATA << 0)           /**< Shifted mode MSCWDATA for DMA_CH_CTRL */
+#define DMA_CH_CTRL_SIGSEL_ADC0SCAN                     (_DMA_CH_CTRL_SIGSEL_ADC0SCAN << 0)           /**< Shifted mode ADC0SCAN for DMA_CH_CTRL */
+#define DMA_CH_CTRL_SIGSEL_USART0TXBL                   (_DMA_CH_CTRL_SIGSEL_USART0TXBL << 0)         /**< Shifted mode USART0TXBL for DMA_CH_CTRL */
+#define DMA_CH_CTRL_SIGSEL_USART1TXBL                   (_DMA_CH_CTRL_SIGSEL_USART1TXBL << 0)         /**< Shifted mode USART1TXBL for DMA_CH_CTRL */
+#define DMA_CH_CTRL_SIGSEL_LEUART0TXBL                  (_DMA_CH_CTRL_SIGSEL_LEUART0TXBL << 0)        /**< Shifted mode LEUART0TXBL for DMA_CH_CTRL */
+#define DMA_CH_CTRL_SIGSEL_I2C0TXBL                     (_DMA_CH_CTRL_SIGSEL_I2C0TXBL << 0)           /**< Shifted mode I2C0TXBL for DMA_CH_CTRL */
+#define DMA_CH_CTRL_SIGSEL_TIMER0CC0                    (_DMA_CH_CTRL_SIGSEL_TIMER0CC0 << 0)          /**< Shifted mode TIMER0CC0 for DMA_CH_CTRL */
+#define DMA_CH_CTRL_SIGSEL_TIMER1CC0                    (_DMA_CH_CTRL_SIGSEL_TIMER1CC0 << 0)          /**< Shifted mode TIMER1CC0 for DMA_CH_CTRL */
+#define DMA_CH_CTRL_SIGSEL_TIMER2CC0                    (_DMA_CH_CTRL_SIGSEL_TIMER2CC0 << 0)          /**< Shifted mode TIMER2CC0 for DMA_CH_CTRL */
+#define DMA_CH_CTRL_SIGSEL_USART0TXEMPTY                (_DMA_CH_CTRL_SIGSEL_USART0TXEMPTY << 0)      /**< Shifted mode USART0TXEMPTY for DMA_CH_CTRL */
+#define DMA_CH_CTRL_SIGSEL_USART1TXEMPTY                (_DMA_CH_CTRL_SIGSEL_USART1TXEMPTY << 0)      /**< Shifted mode USART1TXEMPTY for DMA_CH_CTRL */
+#define DMA_CH_CTRL_SIGSEL_LEUART0TXEMPTY               (_DMA_CH_CTRL_SIGSEL_LEUART0TXEMPTY << 0)     /**< Shifted mode LEUART0TXEMPTY for DMA_CH_CTRL */
+#define DMA_CH_CTRL_SIGSEL_TIMER0CC1                    (_DMA_CH_CTRL_SIGSEL_TIMER0CC1 << 0)          /**< Shifted mode TIMER0CC1 for DMA_CH_CTRL */
+#define DMA_CH_CTRL_SIGSEL_TIMER1CC1                    (_DMA_CH_CTRL_SIGSEL_TIMER1CC1 << 0)          /**< Shifted mode TIMER1CC1 for DMA_CH_CTRL */
+#define DMA_CH_CTRL_SIGSEL_TIMER2CC1                    (_DMA_CH_CTRL_SIGSEL_TIMER2CC1 << 0)          /**< Shifted mode TIMER2CC1 for DMA_CH_CTRL */
+#define DMA_CH_CTRL_SIGSEL_USART1RXDATAVRIGHT           (_DMA_CH_CTRL_SIGSEL_USART1RXDATAVRIGHT << 0) /**< Shifted mode USART1RXDATAVRIGHT for DMA_CH_CTRL */
+#define DMA_CH_CTRL_SIGSEL_TIMER0CC2                    (_DMA_CH_CTRL_SIGSEL_TIMER0CC2 << 0)          /**< Shifted mode TIMER0CC2 for DMA_CH_CTRL */
+#define DMA_CH_CTRL_SIGSEL_TIMER1CC2                    (_DMA_CH_CTRL_SIGSEL_TIMER1CC2 << 0)          /**< Shifted mode TIMER1CC2 for DMA_CH_CTRL */
+#define DMA_CH_CTRL_SIGSEL_TIMER2CC2                    (_DMA_CH_CTRL_SIGSEL_TIMER2CC2 << 0)          /**< Shifted mode TIMER2CC2 for DMA_CH_CTRL */
+#define DMA_CH_CTRL_SIGSEL_USART1TXBLRIGHT              (_DMA_CH_CTRL_SIGSEL_USART1TXBLRIGHT << 0)    /**< Shifted mode USART1TXBLRIGHT for DMA_CH_CTRL */
+#define _DMA_CH_CTRL_SOURCESEL_SHIFT                    16                                            /**< Shift value for DMA_SOURCESEL */
+#define _DMA_CH_CTRL_SOURCESEL_MASK                     0x3F0000UL                                    /**< Bit mask for DMA_SOURCESEL */
+#define _DMA_CH_CTRL_SOURCESEL_NONE                     0x00000000UL                                  /**< Mode NONE for DMA_CH_CTRL */
+#define _DMA_CH_CTRL_SOURCESEL_ADC0                     0x00000008UL                                  /**< Mode ADC0 for DMA_CH_CTRL */
+#define _DMA_CH_CTRL_SOURCESEL_USART0                   0x0000000CUL                                  /**< Mode USART0 for DMA_CH_CTRL */
+#define _DMA_CH_CTRL_SOURCESEL_USART1                   0x0000000DUL                                  /**< Mode USART1 for DMA_CH_CTRL */
+#define _DMA_CH_CTRL_SOURCESEL_LEUART0                  0x00000010UL                                  /**< Mode LEUART0 for DMA_CH_CTRL */
+#define _DMA_CH_CTRL_SOURCESEL_I2C0                     0x00000014UL                                  /**< Mode I2C0 for DMA_CH_CTRL */
+#define _DMA_CH_CTRL_SOURCESEL_TIMER0                   0x00000018UL                                  /**< Mode TIMER0 for DMA_CH_CTRL */
+#define _DMA_CH_CTRL_SOURCESEL_TIMER1                   0x00000019UL                                  /**< Mode TIMER1 for DMA_CH_CTRL */
+#define _DMA_CH_CTRL_SOURCESEL_TIMER2                   0x0000001AUL                                  /**< Mode TIMER2 for DMA_CH_CTRL */
+#define _DMA_CH_CTRL_SOURCESEL_MSC                      0x00000030UL                                  /**< Mode MSC for DMA_CH_CTRL */
+#define DMA_CH_CTRL_SOURCESEL_NONE                      (_DMA_CH_CTRL_SOURCESEL_NONE << 16)           /**< Shifted mode NONE for DMA_CH_CTRL */
+#define DMA_CH_CTRL_SOURCESEL_ADC0                      (_DMA_CH_CTRL_SOURCESEL_ADC0 << 16)           /**< Shifted mode ADC0 for DMA_CH_CTRL */
+#define DMA_CH_CTRL_SOURCESEL_USART0                    (_DMA_CH_CTRL_SOURCESEL_USART0 << 16)         /**< Shifted mode USART0 for DMA_CH_CTRL */
+#define DMA_CH_CTRL_SOURCESEL_USART1                    (_DMA_CH_CTRL_SOURCESEL_USART1 << 16)         /**< Shifted mode USART1 for DMA_CH_CTRL */
+#define DMA_CH_CTRL_SOURCESEL_LEUART0                   (_DMA_CH_CTRL_SOURCESEL_LEUART0 << 16)        /**< Shifted mode LEUART0 for DMA_CH_CTRL */
+#define DMA_CH_CTRL_SOURCESEL_I2C0                      (_DMA_CH_CTRL_SOURCESEL_I2C0 << 16)           /**< Shifted mode I2C0 for DMA_CH_CTRL */
+#define DMA_CH_CTRL_SOURCESEL_TIMER0                    (_DMA_CH_CTRL_SOURCESEL_TIMER0 << 16)         /**< Shifted mode TIMER0 for DMA_CH_CTRL */
+#define DMA_CH_CTRL_SOURCESEL_TIMER1                    (_DMA_CH_CTRL_SOURCESEL_TIMER1 << 16)         /**< Shifted mode TIMER1 for DMA_CH_CTRL */
+#define DMA_CH_CTRL_SOURCESEL_TIMER2                    (_DMA_CH_CTRL_SOURCESEL_TIMER2 << 16)         /**< Shifted mode TIMER2 for DMA_CH_CTRL */
+#define DMA_CH_CTRL_SOURCESEL_MSC                       (_DMA_CH_CTRL_SOURCESEL_MSC << 16)            /**< Shifted mode MSC for DMA_CH_CTRL */
+
+/** @} End of group EFM32HG321F32_DMA */
+
+
+
+/**************************************************************************//**
+ * @defgroup EFM32HG321F32_CMU_BitFields  EFM32HG321F32_CMU Bit Fields
  * @{
  *****************************************************************************/
 
@@ -868,12 +2027,7 @@ typedef struct
 
 /* Bit fields for CMU HFCORECLKEN0 */
 #define _CMU_HFCORECLKEN0_RESETVALUE                0x00000000UL                          /**< Default value for CMU_HFCORECLKEN0 */
-#define _CMU_HFCORECLKEN0_MASK                      0x0000001FUL                          /**< Mask for CMU_HFCORECLKEN0 */
-#define CMU_HFCORECLKEN0_AES                        (0x1UL << 0)                          /**< Advanced Encryption Standard Accelerator Clock Enable */
-#define _CMU_HFCORECLKEN0_AES_SHIFT                 0                                     /**< Shift value for CMU_AES */
-#define _CMU_HFCORECLKEN0_AES_MASK                  0x1UL                                 /**< Bit mask for CMU_AES */
-#define _CMU_HFCORECLKEN0_AES_DEFAULT               0x00000000UL                          /**< Mode DEFAULT for CMU_HFCORECLKEN0 */
-#define CMU_HFCORECLKEN0_AES_DEFAULT                (_CMU_HFCORECLKEN0_AES_DEFAULT << 0)  /**< Shifted mode DEFAULT for CMU_HFCORECLKEN0 */
+#define _CMU_HFCORECLKEN0_MASK                      0x0000001EUL                          /**< Mask for CMU_HFCORECLKEN0 */
 #define CMU_HFCORECLKEN0_DMA                        (0x1UL << 1)                          /**< Direct Memory Access Controller Clock Enable */
 #define _CMU_HFCORECLKEN0_DMA_SHIFT                 1                                     /**< Shift value for CMU_DMA */
 #define _CMU_HFCORECLKEN0_DMA_MASK                  0x2UL                                 /**< Bit mask for CMU_DMA */
@@ -1201,6 +2355,55 @@ typedef struct
 #define _CMU_USHFRCOCONF_USHFRCODIV2DIS_DEFAULT     0x00000000UL                                   /**< Mode DEFAULT for CMU_USHFRCOCONF */
 #define CMU_USHFRCOCONF_USHFRCODIV2DIS_DEFAULT      (_CMU_USHFRCOCONF_USHFRCODIV2DIS_DEFAULT << 4) /**< Shifted mode DEFAULT for CMU_USHFRCOCONF */
 
-/** @} End of group EFM32HG_CMU */
+/** @} End of group EFM32HG321F32_CMU */
+
+
+
+/**************************************************************************//**
+ * @defgroup EFM32HG321F32_UNLOCK EFM32HG321F32 Unlock Codes
+ * @{
+ *****************************************************************************/
+#define MSC_UNLOCK_CODE      0x1B71 /**< MSC unlock code */
+#define EMU_UNLOCK_CODE      0xADE8 /**< EMU unlock code */
+#define CMU_UNLOCK_CODE      0x580E /**< CMU unlock code */
+#define TIMER_UNLOCK_CODE    0xCE80 /**< TIMER unlock code */
+#define GPIO_UNLOCK_CODE     0xA534 /**< GPIO unlock code */
+
+/** @} End of group EFM32HG321F32_UNLOCK */
+
+/** @} End of group EFM32HG321F32_BitFields */
+
+/**************************************************************************//**
+ * @defgroup EFM32HG321F32_Alternate_Function EFM32HG321F32 Alternate Function
+ * @{
+ *****************************************************************************/
+
+#include "efm32hg_af_ports.h"
+#include "efm32hg_af_pins.h"
+
+/** @} End of group EFM32HG321F32_Alternate_Function */
+
+/**************************************************************************//**
+ *  @brief Set the value of a bit field within a register.
+ *
+ *  @param REG
+ *       The register to update
+ *  @param MASK
+ *       The mask for the bit field to update
+ *  @param VALUE
+ *       The value to write to the bit field
+ *  @param OFFSET
+ *       The number of bits that the field is offset within the register.
+ *       0 (zero) means LSB.
+ *****************************************************************************/
+#define SET_BIT_FIELD(REG, MASK, VALUE, OFFSET) \
+  REG = ((REG) &~(MASK)) | (((VALUE) << (OFFSET)) & (MASK));
+
+/** @} End of group EFM32HG321F32 */
+
 /** @} End of group Parts */
 
+#ifdef __cplusplus
+}
+#endif
+#endif /* EFM32HG321F32_H */

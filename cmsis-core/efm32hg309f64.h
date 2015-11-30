@@ -1,7 +1,7 @@
 /**************************************************************************//**
- * @file efm32hg322f64.h
+ * @file efm32hg309f64.h
  * @brief CMSIS Cortex-M Peripheral Access Layer Header File
- *        for EFM32HG322F64
+ *        for EFM32HG309F64
  * @version 4.2.0
  ******************************************************************************
  * @section License
@@ -31,8 +31,8 @@
  *
  *****************************************************************************/
 
-#ifndef EFM32HG322F64_H
-#define EFM32HG322F64_H
+#ifndef EFM32HG309F64_H
+#define EFM32HG309F64_H
 
 #ifdef __cplusplus
 extern "C" {
@@ -44,7 +44,7 @@ extern "C" {
  *****************************************************************************/
 
 /**************************************************************************//**
- * @defgroup EFM32HG322F64 EFM32HG322F64
+ * @defgroup EFM32HG309F64 EFM32HG309F64
  * @{
  *****************************************************************************/
 
@@ -83,7 +83,7 @@ typedef enum IRQn
 } IRQn_Type;
 
 /**************************************************************************//**
- * @defgroup EFM32HG322F64_Core EFM32HG322F64 Core
+ * @defgroup EFM32HG309F64_Core EFM32HG309F64 Core
  * @{
  * @brief Processor and Core Peripheral Section
  *****************************************************************************/
@@ -92,10 +92,10 @@ typedef enum IRQn
 #define __NVIC_PRIO_BITS          2 /**< NVIC interrupt priority bits */
 #define __Vendor_SysTickConfig    0 /**< Is 1 if different SysTick counter is used */
 
-/** @} End of group EFM32HG322F64_Core */
+/** @} End of group EFM32HG309F64_Core */
 
 /**************************************************************************//**
-* @defgroup EFM32HG322F64_Part EFM32HG322F64 Part
+* @defgroup EFM32HG309F64_Part EFM32HG309F64 Part
 * @{
 ******************************************************************************/
 
@@ -106,12 +106,12 @@ typedef enum IRQn
 #define _SILICON_LABS_32B_PLATFORM      1 /**< Silicon Labs platform name */
 
 /* If part number is not defined as compiler option, define it */
-#if !defined(EFM32HG322F64)
-#define EFM32HG322F64    1 /**< Happy Gecko Part  */
+#if !defined(EFM32HG309F64)
+#define EFM32HG309F64    1 /**< Happy Gecko Part  */
 #endif
 
 /** Configure part number */
-#define PART_NUMBER          "EFM32HG322F64" /**< Part Number */
+#define PART_NUMBER          "EFM32HG309F64" /**< Part Number */
 
 /** Memory Base addresses and limits */
 #define FLASH_MEM_BASE       ((uint32_t) 0x0UL)        /**< FLASH base address  */
@@ -143,7 +143,7 @@ typedef enum IRQn
 #define RAM_CODE_MEM_END     ((uint32_t) 0x1001FFFFUL) /**< RAM_CODE end address  */
 #define RAM_CODE_MEM_BITS    ((uint32_t) 0x17UL)       /**< RAM_CODE used bits  */
 
-/** Flash and SRAM limits for EFM32HG322F64 */
+/** Flash and SRAM limits for EFM32HG309F64 */
 #define FLASH_BASE           (0x00000000UL) /**< Flash Base Address */
 #define FLASH_SIZE           (0x00010000UL) /**< Available Flash Memory */
 #define FLASH_PAGE_SIZE      1024           /**< Flash Memory page size */
@@ -222,7 +222,7 @@ typedef enum IRQn
 #define ANALOG_PRESENT
 #define ANALOG_COUNT        1
 
-/** @} End of group EFM32HG322F64_Part */
+/** @} End of group EFM32HG309F64_Part */
 
 #define ARM_MATH_CM0PLUS
 #include "arm_math.h"       /* To get __CLZ definitions etc. */
@@ -230,7 +230,7 @@ typedef enum IRQn
 #include "system_efm32hg.h" /* System Header */
 
 /**************************************************************************//**
- * @defgroup EFM32HG322F64_Peripheral_TypeDefs EFM32HG322F64 Peripheral TypeDefs
+ * @defgroup EFM32HG309F64_Peripheral_TypeDefs EFM32HG309F64 Peripheral TypeDefs
  * @{
  * @brief Device Specific Peripheral Register Structures
  *****************************************************************************/
@@ -267,10 +267,10 @@ typedef enum IRQn
 #include "efm32hg_romtable.h"
 #include "efm32hg_calibrate.h"
 
-/** @} End of group EFM32HG322F64_Peripheral_TypeDefs */
+/** @} End of group EFM32HG309F64_Peripheral_TypeDefs */
 
 /**************************************************************************//**
- * @defgroup EFM32HG322F64_Peripheral_Base EFM32HG322F64 Peripheral Memory Map
+ * @defgroup EFM32HG309F64_Peripheral_Base EFM32HG309F64 Peripheral Memory Map
  * @{
  *****************************************************************************/
 
@@ -304,10 +304,10 @@ typedef enum IRQn
 #define LOCKBITS_BASE     (0x0FE04000UL) /**< Lock-bits page base address */
 #define USERDATA_BASE     (0x0FE00000UL) /**< User data page base address */
 
-/** @} End of group EFM32HG322F64_Peripheral_Base */
+/** @} End of group EFM32HG309F64_Peripheral_Base */
 
 /**************************************************************************//**
- * @defgroup EFM32HG322F64_Peripheral_Declaration  EFM32HG322F64 Peripheral Declarations
+ * @defgroup EFM32HG309F64_Peripheral_Declaration  EFM32HG309F64 Peripheral Declarations
  * @{
  *****************************************************************************/
 
@@ -339,10 +339,10 @@ typedef enum IRQn
 #define DEVINFO      ((DEVINFO_TypeDef *) DEVINFO_BASE)     /**< DEVINFO base pointer */
 #define ROMTABLE     ((ROMTABLE_TypeDef *) ROMTABLE_BASE)   /**< ROMTABLE base pointer */
 
-/** @} End of group EFM32HG322F64_Peripheral_Declaration */
+/** @} End of group EFM32HG309F64_Peripheral_Declaration */
 
 /**************************************************************************//**
- * @defgroup EFM32HG322F64_BitFields EFM32HG322F64 Bit Fields
+ * @defgroup EFM32HG309F64_BitFields EFM32HG309F64 Bit Fields
  * @{
  *****************************************************************************/
 
@@ -351,7 +351,7 @@ typedef enum IRQn
 #include "efm32hg_dmactrl.h"
 
 /**************************************************************************//**
- * @defgroup EFM32HG322F64_UNLOCK EFM32HG322F64 Unlock Codes
+ * @defgroup EFM32HG309F64_UNLOCK EFM32HG309F64 Unlock Codes
  * @{
  *****************************************************************************/
 #define MSC_UNLOCK_CODE      0x1B71 /**< MSC unlock code */
@@ -360,19 +360,19 @@ typedef enum IRQn
 #define TIMER_UNLOCK_CODE    0xCE80 /**< TIMER unlock code */
 #define GPIO_UNLOCK_CODE     0xA534 /**< GPIO unlock code */
 
-/** @} End of group EFM32HG322F64_UNLOCK */
+/** @} End of group EFM32HG309F64_UNLOCK */
 
-/** @} End of group EFM32HG322F64_BitFields */
+/** @} End of group EFM32HG309F64_BitFields */
 
 /**************************************************************************//**
- * @defgroup EFM32HG322F64_Alternate_Function EFM32HG322F64 Alternate Function
+ * @defgroup EFM32HG309F64_Alternate_Function EFM32HG309F64 Alternate Function
  * @{
  *****************************************************************************/
 
 #include "efm32hg_af_ports.h"
 #include "efm32hg_af_pins.h"
 
-/** @} End of group EFM32HG322F64_Alternate_Function */
+/** @} End of group EFM32HG309F64_Alternate_Function */
 
 /**************************************************************************//**
  *  @brief Set the value of a bit field within a register.
@@ -390,11 +390,11 @@ typedef enum IRQn
 #define SET_BIT_FIELD(REG, MASK, VALUE, OFFSET) \
   REG = ((REG) &~(MASK)) | (((VALUE) << (OFFSET)) & (MASK));
 
-/** @} End of group EFM32HG322F64 */
+/** @} End of group EFM32HG309F64 */
 
 /** @} End of group Parts */
 
 #ifdef __cplusplus
 }
 #endif
-#endif /* EFM32HG322F64_H */
+#endif /* EFM32HG309F64_H */
